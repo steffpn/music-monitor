@@ -7,7 +7,7 @@ services:
       POSTGRES_USER: mfm
       POSTGRES_PASSWORD: mfm_local
       POSTGRES_DB: myfuckingmusic
-      TS_TUNE_MAX_BG_WORKERS: 8
+      TS_TUNE_MAX_BG_WORKERS: 16
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:

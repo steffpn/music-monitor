@@ -1,0 +1,137 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Station {
+  id            Int       @id @default(autoincrement())
+  name          String
+  streamUrl     String    @map("stream_url")
+  stationType   String    @map("station_type")
+  country       String    @default("RO")
+  status        String    @default("inactive")
+  lastHeartbeat DateTime? @map("last_heartbeat")
+  restartCount  Int       @default(0) @map("restart_count")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  detections    Detection[]
+  airplayEvents AirplayEvent[]
+  snippets      AudioSnippet[]
+
+  @@map("stations")
+}
+
+model Detection {
+  id             Int       @default(autoincrement())
+  stationId      Int       @map("station_id")
+  detectedAt     DateTime  @map("detected_at")
+  songTitle      String    @map("song_title")
+  artistName     String    @map("artist_name")
+  albumTitle     String?   @map("album_title")
+  isrc           String?
+  confidence     Float
+  durationMs     Int       @map("duration_ms")
+  rawCallbackId  String?   @map("raw_callback_id")
+  createdAt      DateTime  @default(now()) @map("created_at")
+
+  station        Station   @relation(fields: [stationId], references: [id])
+  snippet        AudioSnippet?
+
+  @@id([id, detectedAt])
+  @@unique([rawCallbackId, detectedAt])
+  @@index([stationId, detectedAt])
+  @@index([artistName, detectedAt])
+  @@index([isrc])
+  @@map("detections")
+}
+
+model AirplayEvent {
+  id          Int      @id @default(autoincrement())
+  stationId   Int      @map("station_id")
+  startedAt   DateTime @map("started_at")
+  endedAt     DateTime @map("ended_at")
+  songTitle   String   @map("song_title")
+  artistName  String   @map("artist_name")
+  isrc        String?
+  playCount   Int      @default(1) @map("play_count")
+  snippetUrl  String?  @map("snippet_url")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  station     Station  @relation(fields: [stationId], references: [id])
+
+  @@index([stationId, startedAt])
+  @@index([artistName, startedAt])
+  @@map("airplay_events")
+}
+
+model User {
+  id                  Int          @id @default(autoincrement())
+  email               String       @unique
+  passwordHash        String       @map("password_hash")
+  name                String
+  role                String
+  scopeId             Int?         @map("scope_id")
+  isActive            Boolean      @default(true) @map("is_active")
+  lastLoginAt         DateTime?    @map("last_login_at")
+  createdAt           DateTime     @default(now()) @map("created_at")
+  updatedAt           DateTime     @updatedAt @map("updated_at")
+
+  invitationsCreated  Invitation[] @relation("InvitationsCreated")
+  invitationRedeemed  Invitation?  @relation("InvitationRedeemed")
+
+  @@map("users")
+}
+
+model Invitation {
+  id           Int       @id @default(autoincrement())
+  code         String    @unique
+  role         String
+  scopeId      Int?      @map("scope_id")
+  status       String    @default("pending")
+  createdById  Int       @map("created_by_id")
+  redeemedById Int?      @unique @map("redeemed_by_id")
+  expiresAt    DateTime  @map("expires_at")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  redeemedAt   DateTime? @map("redeemed_at")
+
+  createdBy    User      @relation("InvitationsCreated", fields: [createdById], references: [id])
+  redeemedBy   User?     @relation("InvitationRedeemed", fields: [redeemedById], references: [id])
+
+  @@map("invitations")
+}
+
+model AudioSnippet {
+  id                Int      @id @default(autoincrement())
+  detectionId       Int      @map("detection_id")
+  detectionDetectedAt DateTime @map("detection_detected_at")
+  stationId         Int      @map("station_id")
+  storageKey        String   @map("storage_key")
+  durationMs        Int      @default(5000) @map("duration_ms")
+  encoding          String   @default("aac")
+  bitrate           Int      @default(128)
+  sizeBytes         Int      @map("size_bytes")
+  createdAt         DateTime @default(now()) @map("created_at")
+
+  detection   Detection @relation(fields: [detectionId, detectionDetectedAt], references: [id, detectedAt])
+  station     Station   @relation(fields: [stationId], references: [id])
+
+  @@unique([detectionId, detectionDetectedAt])
+  @@map("audio_snippets")
+}
+
+model RefreshToken {
+  id        Int       @id @default(autoincrement())
+  userId    Int       @map("user_id")
+  token     String    @unique
+  expiresAt DateTime  @map("expires_at")
+  revokedAt DateTime? @map("revoked_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@map("refresh_tokens")
+}
