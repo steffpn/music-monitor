@@ -21,6 +21,7 @@
     "pg": "^8.13.0"
   },
   "devDependencies": {
+    "@myfuckingmusic/tsconfig": "workspace:*",
     "@types/pg": "^8.11.0",
     "prisma": "^7.3.0",
     "tsx": "^4.19.0",

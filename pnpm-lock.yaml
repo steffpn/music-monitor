@@ -39,6 +39,9 @@ importers:
         specifier: ^8.13.0
         version: 8.20.0
     devDependencies:
+      '@myfuckingmusic/tsconfig':
+        specifier: workspace:*
+        version: link:../../packages/tsconfig
       '@types/pg':
         specifier: ^8.11.0
         version: 8.18.0
@@ -57,6 +60,9 @@ importers:
 
   packages/shared:
     devDependencies:
+      '@myfuckingmusic/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
       typescript:
         specifier: ^5.7.0
         version: 5.9.3

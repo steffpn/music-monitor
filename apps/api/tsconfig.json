@@ -1,5 +1,9 @@
 {
   "extends": "@myfuckingmusic/tsconfig/api.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
   "include": ["src/**/*", "prisma.config.ts"],
   "exclude": ["node_modules", "dist", "generated"]
 }

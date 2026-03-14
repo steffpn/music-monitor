@@ -1,0 +1,9 @@
+export const SNIPPET_DURATION_MS = 5000;
+export const SNIPPET_ENCODING = "aac" as const;
+export const SNIPPET_BITRATE = 128;
+export const DETECTION_GAP_TOLERANCE_MS = 300000;
+export const STREAM_WATCHDOG_INTERVAL_MS = 30000;
+export const STREAM_RESTART_DELAY_MS = 5000;
+export const JWT_ACCESS_EXPIRY = "15m";
+export const JWT_REFRESH_EXPIRY = "7d";
+export const API_VERSION = "v1";
