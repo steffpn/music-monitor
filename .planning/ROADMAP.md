@@ -33,11 +33,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. PostgreSQL with TimescaleDB extension runs locally (Docker Compose), and detection data is stored in time-partitioned hypertables
   3. Database migrations run successfully with Prisma, including raw SQL for TimescaleDB-specific features (hypertables, continuous aggregates)
   4. Shared TypeScript types exist for detection events, stations, and user roles
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
+- [ ] 01-01-PLAN.md -- Monorepo scaffolding, Docker Compose, shared TypeScript types
+- [ ] 01-02-PLAN.md -- Prisma v1 schema, TimescaleDB migrations, Fastify server
+- [ ] 01-03-PLAN.md -- iOS Xcode project with MVVM structure and data models
 
 ### Phase 2: Stream Recording Infrastructure
 **Goal**: The system reliably records audio from 200+ radio/TV streams around the clock with automatic failure recovery
@@ -165,7 +166,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Project Foundation | 0/TBD | Not started | - |
+| 1. Project Foundation | 0/3 | Planning complete | - |
 | 2. Stream Recording Infrastructure | 0/TBD | Not started | - |
 | 3. Detection Pipeline | 0/TBD | Not started | - |
 | 4. Audio Snippet System | 0/TBD | Not started | - |
