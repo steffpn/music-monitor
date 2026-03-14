@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-01-PLAN.md
-last_updated: "2026-03-14T23:07:40Z"
-last_activity: 2026-03-15 -- Completed plan 03-01 (Schema Migration and Normalization Utilities)
+stopped_at: Completed 03-02-PLAN.md
+last_updated: "2026-03-14T23:14:21Z"
+last_activity: 2026-03-15 -- Completed plan 03-02 (ACRCloud Webhook Route)
 progress:
   total_phases: 9
   completed_phases: 2
   total_plans: 10
-  completed_plans: 7
-  percent: 26
+  completed_plans: 8
+  percent: 30
 ---
 
 # Project State
@@ -21,23 +21,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-14)
 
 **Core value:** Artists and labels can see exactly where, when, and how often their music is being played across Romanian radio and TV -- with audio proof.
-**Current focus:** Phase 3: Detection Pipeline -- schema migration and normalization complete
+**Current focus:** Phase 3: Detection Pipeline -- webhook route and schema migration complete
 
 ## Current Position
 
 Phase: 3 of 9 (Detection Pipeline)
-Plan: 1 of 4 in current phase (complete)
-Status: Phase 3 in progress, Plan 1 complete
-Last activity: 2026-03-15 -- Completed plan 03-01 (Schema Migration and Normalization Utilities)
+Plan: 2 of 4 in current phase (complete)
+Status: Phase 3 in progress, Plan 2 complete
+Last activity: 2026-03-15 -- Completed plan 03-02 (ACRCloud Webhook Route)
 
-Progress: [██▋░░░░░░░] 26%
+Progress: [███░░░░░░░] 30%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
-- Average duration: 7 min
-- Total execution time: 0.68 hours
+- Total plans completed: 8
+- Average duration: 6 min
+- Total execution time: 0.73 hours
 
 **By Phase:**
 
@@ -45,10 +45,10 @@ Progress: [██▋░░░░░░░] 26%
 |-------|-------|-------|----------|
 | 1. Project Foundation | 3/3 | 19 min | 6 min |
 | 2. Stream Recording Infrastructure | 3/3 | 20 min | 7 min |
-| 3. Detection Pipeline | 1/4 | 7 min | 7 min |
+| 3. Detection Pipeline | 2/4 | 10 min | 5 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-03 (5 min), 02-01 (5 min), 02-02 (8 min), 02-03 (7 min), 03-01 (7 min)
+- Last 5 plans: 02-01 (5 min), 02-02 (8 min), 02-03 (7 min), 03-01 (7 min), 03-02 (3 min)
 - Trend: stable
 
 *Updated after each plan completion*
@@ -58,6 +58,7 @@ Progress: [██▋░░░░░░░] 26%
 | Phase 02 P02 | 8min | 2 tasks (TDD) | 9 files |
 | Phase 02 P03 | 7min | 2 tasks (TDD+checkpoint) | 6 files |
 | Phase 03 P01 | 7min | 2 tasks (TDD) | 9 files |
+| Phase 03 P02 | 3min | 1 task (TDD) | 5 files |
 
 ## Accumulated Context
 
@@ -86,6 +87,8 @@ Recent decisions affecting current work:
 - [Phase 03-01]: Apostrophe stripping in title/artist normalization for consistent deduplication matching
 - [Phase 03-01]: Migration placeholder strategy: assign unique values to existing rows before creating unique index on new required column
 - [Phase 03-01]: NoMatchCallback includes station FK constraint for referential integrity
+- [Phase 03-02]: BullMQ Queue created per-plugin with Fastify onClose hook for graceful shutdown
+- [Phase 03-02]: Handler uses dependency injection (Queue parameter) for testability with mocked BullMQ
 
 ### Pending Todos
 
@@ -99,6 +102,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-14T23:07:40Z
-Stopped at: Completed 03-01-PLAN.md
-Resume file: .planning/phases/03-detection-pipeline/03-01-SUMMARY.md
+Last session: 2026-03-14T23:14:21Z
+Stopped at: Completed 03-02-PLAN.md
+Resume file: .planning/phases/03-detection-pipeline/03-02-SUMMARY.md
