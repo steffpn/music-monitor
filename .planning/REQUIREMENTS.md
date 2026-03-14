@@ -17,9 +17,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Detection
 
-- [ ] **DETC-01**: System receives and processes ACRCloud detection callbacks via webhook endpoint
-- [ ] **DETC-02**: Each detection stores: station, timestamp, song, artist, duration, ISRC, confidence score
-- [ ] **DETC-03**: Raw callbacks are deduplicated into single airplay events (gap-tolerance aggregation)
+- [x] **DETC-01**: System receives and processes ACRCloud detection callbacks via webhook endpoint
+- [x] **DETC-02**: Each detection stores: station, timestamp, song, artist, duration, ISRC, confidence score
+- [x] **DETC-03**: Raw callbacks are deduplicated into single airplay events (gap-tolerance aggregation)
 - [ ] **DETC-04**: User can query historical detections by date range
 - [x] **DETC-05**: Detection data is time-partitioned (TimescaleDB) for query performance at scale
 
@@ -119,9 +119,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | INFR-03 | Phase 4: Audio Snippet System | Pending |
 | INFR-04 | Phase 4: Audio Snippet System | Pending |
 | INFR-05 | Phase 2: Stream Recording Infrastructure | Complete |
-| DETC-01 | Phase 3: Detection Pipeline | Pending |
-| DETC-02 | Phase 3: Detection Pipeline | Pending |
-| DETC-03 | Phase 3: Detection Pipeline | Pending |
+| DETC-01 | Phase 3: Detection Pipeline | Complete |
+| DETC-02 | Phase 3: Detection Pipeline | Complete |
+| DETC-03 | Phase 3: Detection Pipeline | Complete |
 | DETC-04 | Phase 6: Core iOS App & Dashboard | Pending |
 | DETC-05 | Phase 1: Project Foundation | Complete |
 | AUTH-01 | Phase 5: Authentication & User Management | Pending |

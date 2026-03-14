@@ -171,7 +171,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9
 |-------|----------------|--------|-----------|
 | 1. Project Foundation | 3/3 | Complete   | 2026-03-14 |
 | 2. Stream Recording Infrastructure | 3/3 | Complete | 2026-03-15 |
-| 3. Detection Pipeline | 0/4 | Not started | - |
+| 3. Detection Pipeline | 1/4 | In Progress|  |
 | 4. Audio Snippet System | 0/TBD | Not started | - |
 | 5. Authentication & User Management | 0/TBD | Not started | - |
 | 6. Core iOS App & Dashboard | 0/TBD | Not started | - |

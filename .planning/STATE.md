@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-stopped_at: Phase 3 context gathered
-last_updated: "2026-03-14T22:37:17.092Z"
-last_activity: 2026-03-15 -- Completed plan 02-03 (BullMQ Cleanup Worker and Docker Infrastructure)
+status: executing
+stopped_at: Completed 03-01-PLAN.md
+last_updated: "2026-03-14T23:07:40Z"
+last_activity: 2026-03-15 -- Completed plan 03-01 (Schema Migration and Normalization Utilities)
 progress:
   total_phases: 9
   completed_phases: 2
-  total_plans: 6
-  completed_plans: 6
-  percent: 22
+  total_plans: 10
+  completed_plans: 7
+  percent: 26
 ---
 
 # Project State
@@ -21,23 +21,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-14)
 
 **Core value:** Artists and labels can see exactly where, when, and how often their music is being played across Romanian radio and TV -- with audio proof.
-**Current focus:** Phase 2 complete, ready for Phase 3: Detection Pipeline
+**Current focus:** Phase 3: Detection Pipeline -- schema migration and normalization complete
 
 ## Current Position
 
-Phase: 2 of 9 (Stream Recording Infrastructure) -- COMPLETE
-Plan: 3 of 3 in current phase (complete)
-Status: Phase 2 complete, ready for Phase 3 planning
-Last activity: 2026-03-15 -- Completed plan 02-03 (BullMQ Cleanup Worker and Docker Infrastructure)
+Phase: 3 of 9 (Detection Pipeline)
+Plan: 1 of 4 in current phase (complete)
+Status: Phase 3 in progress, Plan 1 complete
+Last activity: 2026-03-15 -- Completed plan 03-01 (Schema Migration and Normalization Utilities)
 
-Progress: [██▏░░░░░░░] 22%
+Progress: [██▋░░░░░░░] 26%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
-- Average duration: 6 min
-- Total execution time: 0.57 hours
+- Total plans completed: 7
+- Average duration: 7 min
+- Total execution time: 0.68 hours
 
 **By Phase:**
 
@@ -45,9 +45,10 @@ Progress: [██▏░░░░░░░] 22%
 |-------|-------|-------|----------|
 | 1. Project Foundation | 3/3 | 19 min | 6 min |
 | 2. Stream Recording Infrastructure | 3/3 | 20 min | 7 min |
+| 3. Detection Pipeline | 1/4 | 7 min | 7 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-02 (7 min), 01-03 (5 min), 02-01 (5 min), 02-02 (8 min), 02-03 (7 min)
+- Last 5 plans: 01-03 (5 min), 02-01 (5 min), 02-02 (8 min), 02-03 (7 min), 03-01 (7 min)
 - Trend: stable
 
 *Updated after each plan completion*
@@ -56,6 +57,7 @@ Progress: [██▏░░░░░░░] 22%
 | Phase 02 P01 | 5min | 1 task (TDD) | 9 files |
 | Phase 02 P02 | 8min | 2 tasks (TDD) | 9 files |
 | Phase 02 P03 | 7min | 2 tasks (TDD+checkpoint) | 6 files |
+| Phase 03 P01 | 7min | 2 tasks (TDD) | 9 files |
 
 ## Accumulated Context
 
@@ -81,6 +83,9 @@ Recent decisions affecting current work:
 - [Phase 02-02]: Backoff timer respawns FFmpeg directly to preserve restartCount; only explicit restartStream resets counter
 - [Phase 02-03]: BullMQ v5 upsertJobScheduler API for repeating cleanup jobs (not deprecated repeatable API)
 - [Phase 02-03]: Cleanup worker integrated into supervisor lifecycle for coordinated startup/shutdown
+- [Phase 03-01]: Apostrophe stripping in title/artist normalization for consistent deduplication matching
+- [Phase 03-01]: Migration placeholder strategy: assign unique values to existing rows before creating unique index on new required column
+- [Phase 03-01]: NoMatchCallback includes station FK constraint for referential integrity
 
 ### Pending Todos
 
@@ -94,6 +99,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-14T22:37:17.081Z
-Stopped at: Phase 3 context gathered
-Resume file: .planning/phases/03-detection-pipeline/03-CONTEXT.md
+Last session: 2026-03-14T23:07:40Z
+Stopped at: Completed 03-01-PLAN.md
+Resume file: .planning/phases/03-detection-pipeline/03-01-SUMMARY.md
