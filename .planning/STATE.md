@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in-progress
-stopped_at: Completed plan 02-02 (FFmpeg Process Supervisor)
-last_updated: "2026-03-14T21:48:26Z"
-last_activity: 2026-03-14 -- Completed plan 02-02 (FFmpeg Process Supervisor)
+stopped_at: Completed 02-03-PLAN.md
+last_updated: "2026-03-15T00:20:00Z"
+last_activity: 2026-03-15 -- Completed plan 02-03 (BullMQ Cleanup Worker and Docker Infrastructure)
 progress:
   total_phases: 9
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 6
-  completed_plans: 5
-  percent: 19
+  completed_plans: 6
+  percent: 22
 ---
 
 # Project State
@@ -21,33 +21,33 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-14)
 
 **Core value:** Artists and labels can see exactly where, when, and how often their music is being played across Romanian radio and TV -- with audio proof.
-**Current focus:** Phase 2: Stream Recording Infrastructure
+**Current focus:** Phase 2 complete, ready for Phase 3: Detection Pipeline
 
 ## Current Position
 
-Phase: 2 of 9 (Stream Recording Infrastructure) -- IN PROGRESS
-Plan: 2 of 3 in current phase (complete)
-Status: Plan 02-02 complete, ready for Plan 02-03
-Last activity: 2026-03-14 -- Completed plan 02-02 (FFmpeg Process Supervisor)
+Phase: 2 of 9 (Stream Recording Infrastructure) -- COMPLETE
+Plan: 3 of 3 in current phase (complete)
+Status: Phase 2 complete, ready for Phase 3 planning
+Last activity: 2026-03-15 -- Completed plan 02-03 (BullMQ Cleanup Worker and Docker Infrastructure)
 
-Progress: [█▉░░░░░░░░] 19%
+Progress: [██▏░░░░░░░] 22%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
+- Total plans completed: 6
 - Average duration: 6 min
-- Total execution time: 0.53 hours
+- Total execution time: 0.57 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1. Project Foundation | 3/3 | 19 min | 6 min |
-| 2. Stream Recording Infrastructure | 2/3 | 13 min | 7 min |
+| 2. Stream Recording Infrastructure | 3/3 | 20 min | 7 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (7 min), 01-02 (7 min), 01-03 (5 min), 02-01 (5 min), 02-02 (8 min)
+- Last 5 plans: 01-02 (7 min), 01-03 (5 min), 02-01 (5 min), 02-02 (8 min), 02-03 (7 min)
 - Trend: stable
 
 *Updated after each plan completion*
@@ -55,6 +55,7 @@ Progress: [█▉░░░░░░░░] 19%
 | Phase 01 P03 | 5 | 2 tasks | 14 files |
 | Phase 02 P01 | 5min | 1 task (TDD) | 9 files |
 | Phase 02 P02 | 8min | 2 tasks (TDD) | 9 files |
+| Phase 02 P03 | 7min | 2 tasks (TDD+checkpoint) | 6 files |
 
 ## Accumulated Context
 
@@ -78,6 +79,8 @@ Recent decisions affecting current work:
 - [Phase 02-02]: MPEG-TS (.ts) container for segments -- maximum codec compatibility across heterogeneous stream sources
 - [Phase 02-02]: Pino standalone logger for supervisor process (separate from Fastify built-in)
 - [Phase 02-02]: Backoff timer respawns FFmpeg directly to preserve restartCount; only explicit restartStream resets counter
+- [Phase 02-03]: BullMQ v5 upsertJobScheduler API for repeating cleanup jobs (not deprecated repeatable API)
+- [Phase 02-03]: Cleanup worker integrated into supervisor lifecycle for coordinated startup/shutdown
 
 ### Pending Todos
 
@@ -91,6 +94,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-14T21:48:26Z
-Stopped at: Completed 02-02-PLAN.md
-Resume file: .planning/phases/02-stream-recording-infrastructure/02-02-SUMMARY.md
+Last session: 2026-03-15T00:20:00Z
+Stopped at: Completed 02-03-PLAN.md (Phase 2 complete)
+Resume file: .planning/phases/02-stream-recording-infrastructure/02-03-SUMMARY.md

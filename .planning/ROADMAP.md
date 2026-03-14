@@ -13,7 +13,7 @@ This roadmap takes myFuckingMusic from zero to a production broadcast monitoring
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Project Foundation** - Dev environment, database schema with TimescaleDB, project scaffolding (completed 2026-03-14)
-- [ ] **Phase 2: Stream Recording Infrastructure** - FFmpeg process supervisor recording 200+ streams 24/7
+- [x] **Phase 2: Stream Recording Infrastructure** - FFmpeg process supervisor recording 200+ streams 24/7 (completed 2026-03-15)
 - [ ] **Phase 3: Detection Pipeline** - ACRCloud webhook receiver, detection storage, deduplication
 - [ ] **Phase 4: Audio Snippet System** - 5-second snippet capture, R2 storage, presigned URL serving
 - [ ] **Phase 5: Authentication & User Management** - Invite-only auth, JWT sessions, RBAC, admin user ops
@@ -54,8 +54,8 @@ Plans:
 
 Plans:
 - [x] 02-01-PLAN.md -- Station CRUD REST API with Redis pub/sub event publishing
-- [ ] 02-02-PLAN.md -- FFmpeg process supervisor with watchdog, backoff, and staggered startup
-- [ ] 02-03-PLAN.md -- BullMQ segment cleanup worker, Docker infrastructure, end-to-end verification
+- [x] 02-02-PLAN.md -- FFmpeg process supervisor with watchdog, backoff, and staggered startup
+- [x] 02-03-PLAN.md -- BullMQ segment cleanup worker, Docker infrastructure, end-to-end verification
 
 ### Phase 3: Detection Pipeline
 **Goal**: ACRCloud detection results flow into the system, are deduplicated into meaningful airplay events, and stored with full metadata
@@ -168,7 +168,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Project Foundation | 3/3 | Complete   | 2026-03-14 |
-| 2. Stream Recording Infrastructure | 2/3 | In Progress|  |
+| 2. Stream Recording Infrastructure | 3/3 | Complete | 2026-03-15 |
 | 3. Detection Pipeline | 0/TBD | Not started | - |
 | 4. Audio Snippet System | 0/TBD | Not started | - |
 | 5. Authentication & User Management | 0/TBD | Not started | - |
