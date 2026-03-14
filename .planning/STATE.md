@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-01-PLAN.md
-last_updated: "2026-03-14T01:19:32.000Z"
-last_activity: 2026-03-14 -- Completed plan 01-01 (monorepo scaffolding)
+stopped_at: Completed 01-02-PLAN.md
+last_updated: "2026-03-14T01:32:55.440Z"
+last_activity: 2026-03-14 -- Completed plan 01-02 (database schema and server foundation)
 progress:
   total_phases: 9
   completed_phases: 0
   total_plans: 3
-  completed_plans: 1
+  completed_plans: 2
   percent: 3
 ---
 
@@ -26,9 +26,9 @@ See: .planning/PROJECT.md (updated 2026-03-14)
 ## Current Position
 
 Phase: 1 of 9 (Project Foundation)
-Plan: 1 of 3 in current phase (complete)
+Plan: 2 of 3 in current phase (complete)
 Status: Executing
-Last activity: 2026-03-14 -- Completed plan 01-01 (monorepo scaffolding)
+Last activity: 2026-03-14 -- Completed plan 01-02 (database schema and server foundation)
 
 Progress: [▓░░░░░░░░░] 3%
 
@@ -50,6 +50,7 @@ Progress: [▓░░░░░░░░░] 3%
 - Trend: baseline
 
 *Updated after each plan completion*
+| Phase 01 P02 | 7min | 2 tasks | 12 files |
 
 ## Accumulated Context
 
@@ -62,6 +63,9 @@ Recent decisions affecting current work:
 - [01-01]: Node 20.19.5 required for Prisma 7 compatibility (added .nvmrc)
 - [01-01]: rootDir/outDir must be in consuming tsconfig, not shared base configs
 - [01-01]: pnpm 10.x requires onlyBuiltDependencies whitelist for build scripts
+- [Phase 01]: Composite PK (id, detected_at) on detections -- required by TimescaleDB hypertable partitioning
+- [Phase 01]: FK constraints on hypertable enforced at application layer via Prisma, not DB-level
+- [Phase 01]: TimescaleDB bg workers minimum 16 (not 8) for latest-pg17 Docker image
 
 ### Pending Todos
 
@@ -75,6 +79,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-14T01:19:32Z
-Stopped at: Completed 01-01-PLAN.md
-Resume file: .planning/phases/01-project-foundation/01-01-SUMMARY.md
+Last session: 2026-03-14T01:32:55.438Z
+Stopped at: Completed 01-02-PLAN.md
+Resume file: None
