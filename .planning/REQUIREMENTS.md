@@ -9,11 +9,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Infrastructure
 
-- [ ] **INFR-01**: Backend monitors 200+ Romanian radio/TV streams 24/7 via FFmpeg process supervisor
+- [x] **INFR-01**: Backend monitors 200+ Romanian radio/TV streams 24/7 via FFmpeg process supervisor
 - [x] **INFR-02**: Admin can add, edit, and remove stations with stream URLs
 - [ ] **INFR-03**: System captures 5-second audio snippets from recorded stream at moment of detection
 - [ ] **INFR-04**: Snippets stored in cloud storage (Cloudflare R2) with AAC 128kbps encoding
-- [ ] **INFR-05**: Stream health monitoring with per-stream watchdog and automatic restart on failure
+- [x] **INFR-05**: Stream health monitoring with per-stream watchdog and automatic restart on failure
 
 ### Detection
 
@@ -114,11 +114,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFR-01 | Phase 2: Stream Recording Infrastructure | Pending |
+| INFR-01 | Phase 2: Stream Recording Infrastructure | Complete |
 | INFR-02 | Phase 2: Stream Recording Infrastructure | Complete |
 | INFR-03 | Phase 4: Audio Snippet System | Pending |
 | INFR-04 | Phase 4: Audio Snippet System | Pending |
-| INFR-05 | Phase 2: Stream Recording Infrastructure | Pending |
+| INFR-05 | Phase 2: Stream Recording Infrastructure | Complete |
 | DETC-01 | Phase 3: Detection Pipeline | Pending |
 | DETC-02 | Phase 3: Detection Pipeline | Pending |
 | DETC-03 | Phase 3: Detection Pipeline | Pending |

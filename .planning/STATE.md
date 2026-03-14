@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in-progress
-stopped_at: Completed plan 02-01 (Station CRUD API)
-last_updated: "2026-03-14T21:45:04Z"
-last_activity: 2026-03-14 -- Completed plan 02-01 (Station CRUD API with pub/sub)
+stopped_at: Completed plan 02-02 (FFmpeg Process Supervisor)
+last_updated: "2026-03-14T21:48:26Z"
+last_activity: 2026-03-14 -- Completed plan 02-02 (FFmpeg Process Supervisor)
 progress:
   total_phases: 9
   completed_phases: 1
   total_plans: 6
-  completed_plans: 4
-  percent: 15
+  completed_plans: 5
+  percent: 19
 ---
 
 # Project State
@@ -26,34 +26,35 @@ See: .planning/PROJECT.md (updated 2026-03-14)
 ## Current Position
 
 Phase: 2 of 9 (Stream Recording Infrastructure) -- IN PROGRESS
-Plan: 1 of 3 in current phase (complete)
-Status: Plan 02-01 complete, ready for Plan 02-02
-Last activity: 2026-03-14 -- Completed plan 02-01 (Station CRUD API with pub/sub)
+Plan: 2 of 3 in current phase (complete)
+Status: Plan 02-02 complete, ready for Plan 02-03
+Last activity: 2026-03-14 -- Completed plan 02-02 (FFmpeg Process Supervisor)
 
-Progress: [█▌░░░░░░░░] 15%
+Progress: [█▉░░░░░░░░] 19%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
+- Total plans completed: 5
 - Average duration: 6 min
-- Total execution time: 0.40 hours
+- Total execution time: 0.53 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1. Project Foundation | 3/3 | 19 min | 6 min |
-| 2. Stream Recording Infrastructure | 1/3 | 5 min | 5 min |
+| 2. Stream Recording Infrastructure | 2/3 | 13 min | 7 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (7 min), 01-02 (7 min), 01-03 (5 min), 02-01 (5 min)
+- Last 5 plans: 01-01 (7 min), 01-02 (7 min), 01-03 (5 min), 02-01 (5 min), 02-02 (8 min)
 - Trend: stable
 
 *Updated after each plan completion*
 | Phase 01 P02 | 7min | 2 tasks | 12 files |
 | Phase 01 P03 | 5 | 2 tasks | 14 files |
 | Phase 02 P01 | 5min | 1 task (TDD) | 9 files |
+| Phase 02 P02 | 8min | 2 tasks (TDD) | 9 files |
 
 ## Accumulated Context
 
@@ -74,6 +75,9 @@ Recent decisions affecting current work:
 - [Phase 02-01]: TypeBox for Fastify route validation with compile-time type inference
 - [Phase 02-01]: Soft delete sets station status to INACTIVE, preserving DB record per user decision
 - [Phase 02-01]: Fastify plugin route pattern: routes/v1/{resource}/index.ts + schema.ts + handlers.ts
+- [Phase 02-02]: MPEG-TS (.ts) container for segments -- maximum codec compatibility across heterogeneous stream sources
+- [Phase 02-02]: Pino standalone logger for supervisor process (separate from Fastify built-in)
+- [Phase 02-02]: Backoff timer respawns FFmpeg directly to preserve restartCount; only explicit restartStream resets counter
 
 ### Pending Todos
 
@@ -87,6 +91,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-14T21:45:04Z
-Stopped at: Completed 02-01-PLAN.md
-Resume file: .planning/phases/02-stream-recording-infrastructure/02-01-SUMMARY.md
+Last session: 2026-03-14T21:48:26Z
+Stopped at: Completed 02-02-PLAN.md
+Resume file: .planning/phases/02-stream-recording-infrastructure/02-02-SUMMARY.md

@@ -168,7 +168,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Project Foundation | 3/3 | Complete   | 2026-03-14 |
-| 2. Stream Recording Infrastructure | 1/3 | In progress | - |
+| 2. Stream Recording Infrastructure | 2/3 | In Progress|  |
 | 3. Detection Pipeline | 0/TBD | Not started | - |
 | 4. Audio Snippet System | 0/TBD | Not started | - |
 | 5. Authentication & User Management | 0/TBD | Not started | - |
