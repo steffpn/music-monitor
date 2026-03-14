@@ -114,13 +114,45 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| — | — | Pending roadmap creation |
+| INFR-01 | Phase 2: Stream Recording Infrastructure | Pending |
+| INFR-02 | Phase 2: Stream Recording Infrastructure | Pending |
+| INFR-03 | Phase 4: Audio Snippet System | Pending |
+| INFR-04 | Phase 4: Audio Snippet System | Pending |
+| INFR-05 | Phase 2: Stream Recording Infrastructure | Pending |
+| DETC-01 | Phase 3: Detection Pipeline | Pending |
+| DETC-02 | Phase 3: Detection Pipeline | Pending |
+| DETC-03 | Phase 3: Detection Pipeline | Pending |
+| DETC-04 | Phase 6: Core iOS App & Dashboard | Pending |
+| DETC-05 | Phase 1: Project Foundation | Pending |
+| AUTH-01 | Phase 5: Authentication & User Management | Pending |
+| AUTH-02 | Phase 5: Authentication & User Management | Pending |
+| AUTH-03 | Phase 5: Authentication & User Management | Pending |
+| AUTH-04 | Phase 5: Authentication & User Management | Pending |
+| USER-01 | Phase 5: Authentication & User Management | Pending |
+| USER-02 | Phase 5: Authentication & User Management | Pending |
+| USER-03 | Phase 5: Authentication & User Management | Pending |
+| DASH-01 | Phase 6: Core iOS App & Dashboard | Pending |
+| DASH-02 | Phase 6: Core iOS App & Dashboard | Pending |
+| DASH-03 | Phase 6: Core iOS App & Dashboard | Pending |
+| DASH-04 | Phase 6: Core iOS App & Dashboard | Pending |
+| DASH-05 | Phase 6: Core iOS App & Dashboard | Pending |
+| LIVE-01 | Phase 7: Live Feed | Pending |
+| LIVE-02 | Phase 7: Live Feed | Pending |
+| PLAY-01 | Phase 6: Core iOS App & Dashboard | Pending |
+| PLAY-02 | Phase 6: Core iOS App & Dashboard | Pending |
+| EXPT-01 | Phase 8: Export & Reporting | Pending |
+| EXPT-02 | Phase 8: Export & Reporting | Pending |
+| NOTF-01 | Phase 9: Notifications & Station Intelligence | Pending |
+| NOTF-02 | Phase 9: Notifications & Station Intelligence | Pending |
+| NOTF-03 | Phase 9: Notifications & Station Intelligence | Pending |
+| STIN-01 | Phase 9: Notifications & Station Intelligence | Pending |
+| STIN-02 | Phase 9: Notifications & Station Intelligence | Pending |
 
 **Coverage:**
 - v1 requirements: 33 total
-- Mapped to phases: 0
-- Unmapped: 33 ⚠️
+- Mapped to phases: 33
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-14*
-*Last updated: 2026-03-14 after initial definition*
+*Last updated: 2026-03-14 after roadmap creation*
