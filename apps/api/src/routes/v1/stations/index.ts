@@ -13,8 +13,13 @@ import {
   updateStation,
   deleteStation,
 } from "./handlers.js";
+import { authenticate } from "../../../middleware/authenticate.js";
+import { requireRole } from "../../../middleware/authorize.js";
 
 const stationRoutes: FastifyPluginAsync = async (fastify) => {
+  // All station routes require admin authentication
+  fastify.addHook("preHandler", authenticate);
+  fastify.addHook("preHandler", requireRole("ADMIN"));
   // POST / - Create a single station
   fastify.post(
     "/",
