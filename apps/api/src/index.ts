@@ -1,8 +1,16 @@
 import Fastify from "fastify";
+import fastifyJwt from "@fastify/jwt";
 import { prisma } from "./lib/prisma.js";
 import { redis } from "./lib/redis.js";
+import { bootstrapAdmin } from "./lib/auth.js";
 
 const server = Fastify({ logger: true });
+
+// JWT authentication
+server.register(fastifyJwt, {
+  secret: process.env.JWT_SECRET || "dev-secret-change-me",
+  sign: { expiresIn: "1h" },
+});
 
 // Health check -- verifies DB and Redis connections
 server.get("/health", async () => {
@@ -38,6 +46,8 @@ export { server };
 
 const start = async () => {
   try {
+    await server.ready();
+    await bootstrapAdmin();
     await server.listen({ port: 3000, host: "0.0.0.0" });
   } catch (err) {
     server.log.error(err);
