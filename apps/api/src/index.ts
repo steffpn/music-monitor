@@ -1,8 +1,14 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import Fastify from "fastify";
 import fastifyJwt from "@fastify/jwt";
+import fastifyStatic from "@fastify/static";
 import { prisma } from "./lib/prisma.js";
 import { redis } from "./lib/redis.js";
 import { bootstrapAdmin } from "./lib/auth.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const server = Fastify({ logger: true });
 
@@ -38,6 +44,18 @@ const shutdown = async () => {
 
 process.on("SIGTERM", shutdown);
 process.on("SIGINT", shutdown);
+
+// Admin dashboard static files
+server.register(fastifyStatic, {
+  root: path.join(__dirname, "admin-dashboard/public"),
+  prefix: "/admin/",
+  decorateReply: false,
+});
+
+// Redirect /admin to /admin/ for convenience
+server.get("/admin", async (_req, reply) => {
+  return reply.redirect("/admin/");
+});
 
 // API v1 routes
 server.register(import("./routes/v1/index.js"), { prefix: "/api/v1" });

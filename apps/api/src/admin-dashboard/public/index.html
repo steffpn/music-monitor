@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Login View -->
+  <div id="login-view" class="view">
+    <div class="login-container">
+      <h1>Admin Login</h1>
+      <form id="login-form">
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" required autocomplete="email" />
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" required autocomplete="current-password" />
+        <button type="submit">Log In</button>
+      </form>
+      <div id="login-error" class="error-message"></div>
+    </div>
+  </div>
+
+  <!-- Dashboard View -->
+  <div id="dashboard-view" class="view" style="display:none">
+    <header class="dashboard-header">
+      <h1>Admin Dashboard</h1>
+      <nav class="nav-tabs">
+        <button class="tab-btn active" data-tab="users">Users</button>
+        <button class="tab-btn" data-tab="invitations">Invitations</button>
+        <button id="logout-btn" class="btn-logout">Logout</button>
+      </nav>
+    </header>
+
+    <!-- Users Section -->
+    <section id="users-section" class="tab-section">
+      <h2>Users</h2>
+      <table id="users-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Scopes</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="users-tbody"></tbody>
+      </table>
+    </section>
+
+    <!-- Invitations Section -->
+    <section id="invitations-section" class="tab-section" style="display:none">
+      <h2>Invitations</h2>
+
+      <div class="create-invitation-form">
+        <h3>Create Invitation</h3>
+        <form id="create-invitation-form">
+          <div class="form-row">
+            <label for="inv-role">Role</label>
+            <select id="inv-role" required>
+              <option value="ARTIST">ARTIST</option>
+              <option value="LABEL">LABEL</option>
+              <option value="STATION">STATION</option>
+              <option value="ADMIN">ADMIN</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label for="inv-scope-id">Scope ID (optional)</label>
+            <input type="number" id="inv-scope-id" placeholder="e.g. 1" />
+          </div>
+          <div class="form-row">
+            <label for="inv-max-uses">Max Uses</label>
+            <input type="number" id="inv-max-uses" value="1" min="1" required />
+          </div>
+          <button type="submit">Create Invitation</button>
+        </form>
+        <div id="invitation-result" class="success-message" style="display:none"></div>
+      </div>
+
+      <table id="invitations-table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Role</th>
+            <th>Scope ID</th>
+            <th>Max Uses</th>
+            <th>Used</th>
+            <th>Status</th>
+            <th>Expires</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="invitations-tbody"></tbody>
+      </table>
+    </section>
+
+    <!-- User Edit Modal -->
+    <div id="user-edit-modal" class="modal" style="display:none">
+      <div class="modal-content">
+        <h3>Edit User: <span id="edit-user-name"></span></h3>
+        <form id="edit-user-form">
+          <input type="hidden" id="edit-user-id" />
+
+          <label for="edit-user-role">Role</label>
+          <select id="edit-user-role">
+            <option value="ARTIST">ARTIST</option>
+            <option value="LABEL">LABEL</option>
+            <option value="STATION">STATION</option>
+            <option value="ADMIN">ADMIN</option>
+          </select>
+
+          <label>Scopes</label>
+          <div id="scopes-list"></div>
+          <button type="button" id="add-scope-btn" class="btn-secondary">Add Scope</button>
+
+          <div class="modal-actions">
+            <button type="submit">Save Changes</button>
+            <button type="button" id="cancel-edit-btn" class="btn-secondary">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
