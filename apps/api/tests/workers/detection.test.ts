@@ -571,11 +571,104 @@ describe("Detection Worker", () => {
   });
 
   // ============================================
+  // Snippet job enqueue
+  // ============================================
+  describe("Snippet job enqueue", () => {
+    const mockSnippetQueueAdd = vi.fn().mockResolvedValue(undefined);
+    const mockSnippetQueue = { add: mockSnippetQueueAdd } as unknown as import("bullmq").Queue;
+
+    beforeEach(() => {
+      mockSnippetQueueAdd.mockClear();
+    });
+
+    it("enqueues snippet job when creating a NEW AirplayEvent and SNIPPETS_ENABLED=true", async () => {
+      process.env.SNIPPETS_ENABLED = "true";
+      mockAirplayEventFindFirst.mockResolvedValue(null);
+      mockAirplayEventCreate.mockResolvedValue({ id: 42 });
+
+      // Re-import to pick up the snippet queue
+      const mod = await import("../../src/workers/detection.js");
+      // Start detection worker with snippet queue injected
+      await mod.startDetectionWorker({ snippetQueue: mockSnippetQueue });
+      await mod.processCallback(buildCallback());
+
+      expect(mockSnippetQueueAdd).toHaveBeenCalledWith("extract", {
+        airplayEventId: 42,
+        stationId: 1,
+        detectedAt: new Date("2026-03-15 14:30:00").toISOString(),
+      });
+
+      delete process.env.SNIPPETS_ENABLED;
+    });
+
+    it("does NOT enqueue snippet job when EXTENDING an existing AirplayEvent", async () => {
+      process.env.SNIPPETS_ENABLED = "true";
+      const existingEvent = {
+        id: 10,
+        stationId: 1,
+        startedAt: new Date("2026-03-15 14:30:00"),
+        endedAt: new Date("2026-03-15 14:30:00"),
+        songTitle: "Doua Inimi",
+        artistName: "Irina Rimes",
+        isrc: "ROA231600001",
+        playCount: 1,
+        confidence: 0.85,
+      };
+      mockAirplayEventFindFirst.mockResolvedValue(existingEvent);
+
+      const mod = await import("../../src/workers/detection.js");
+      await mod.startDetectionWorker({ snippetQueue: mockSnippetQueue });
+      await mod.processCallback(buildCallback());
+
+      expect(mockSnippetQueueAdd).not.toHaveBeenCalled();
+
+      delete process.env.SNIPPETS_ENABLED;
+    });
+
+    it("does NOT enqueue snippet job when SNIPPETS_ENABLED is not 'true'", async () => {
+      process.env.SNIPPETS_ENABLED = "false";
+      mockAirplayEventFindFirst.mockResolvedValue(null);
+      mockAirplayEventCreate.mockResolvedValue({ id: 43 });
+
+      const mod = await import("../../src/workers/detection.js");
+      await mod.startDetectionWorker({ snippetQueue: mockSnippetQueue });
+      await mod.processCallback(buildCallback());
+
+      expect(mockSnippetQueueAdd).not.toHaveBeenCalled();
+
+      delete process.env.SNIPPETS_ENABLED;
+    });
+
+    it("does NOT enqueue snippet job when no snippetQueue is provided", async () => {
+      process.env.SNIPPETS_ENABLED = "true";
+      mockAirplayEventFindFirst.mockResolvedValue(null);
+      mockAirplayEventCreate.mockResolvedValue({ id: 44 });
+
+      const mod = await import("../../src/workers/detection.js");
+      // Start WITHOUT snippet queue
+      await mod.startDetectionWorker();
+      await mod.processCallback(buildCallback());
+
+      expect(mockSnippetQueueAdd).not.toHaveBeenCalled();
+
+      delete process.env.SNIPPETS_ENABLED;
+    });
+  });
+
+  // ============================================
   // Worker lifecycle
   // ============================================
   describe("Worker lifecycle", () => {
     it("startDetectionWorker returns { queue, worker }", async () => {
       const result = await startDetectionWorker();
+
+      expect(result).toHaveProperty("queue");
+      expect(result).toHaveProperty("worker");
+    });
+
+    it("startDetectionWorker accepts optional snippetQueue parameter", async () => {
+      const mockSnippetQueue = { add: vi.fn() } as unknown as import("bullmq").Queue;
+      const result = await startDetectionWorker({ snippetQueue: mockSnippetQueue });
 
       expect(result).toHaveProperty("queue");
       expect(result).toHaveProperty("worker");
