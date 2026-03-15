@@ -99,11 +99,12 @@ Plans:
   3. User session persists across app restarts (JWT access + refresh token flow works correctly)
   4. User can log out from any screen in the app
   5. Each role sees only data within its scope (Artist sees own songs, Label sees its artists, Station sees competitor data, Admin sees everything)
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 05-01: TBD
-- [ ] 05-02: TBD
+- [ ] 05-01-PLAN.md -- Schema migration (UserScope, multi-use invitations), auth service library, JWT middleware
+- [ ] 05-02-PLAN.md -- Auth routes (register, login, refresh, logout), admin routes (invitations, users), protect existing endpoints
+- [ ] 05-03-PLAN.md -- Admin web dashboard (vanilla HTML/JS/CSS served via @fastify/static)
 
 ### Phase 6: Core iOS App & Dashboard
 **Goal**: Users can browse their airplay data, view analytics, search detections, and play audio proof snippets -- all through the iOS app
@@ -174,7 +175,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9
 | 2. Stream Recording Infrastructure | 3/3 | Complete | 2026-03-15 |
 | 3. Detection Pipeline | 4/4 | Complete | 2026-03-15 |
 | 4. Audio Snippet System | 2/2 | Complete   | 2026-03-15 |
-| 5. Authentication & User Management | 0/TBD | Not started | - |
+| 5. Authentication & User Management | 0/3 | Not started | - |
 | 6. Core iOS App & Dashboard | 0/TBD | Not started | - |
 | 7. Live Feed | 0/TBD | Not started | - |
 | 8. Export & Reporting | 0/TBD | Not started | - |
