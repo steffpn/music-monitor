@@ -32,9 +32,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### User Management
 
-- [ ] **USER-01**: Admin can create and send invitation codes with assigned role and scope
-- [ ] **USER-02**: Admin can view all users and their roles
-- [ ] **USER-03**: Admin can deactivate user accounts
+- [x] **USER-01**: Admin can create and send invitation codes with assigned role and scope
+- [x] **USER-02**: Admin can view all users and their roles
+- [x] **USER-03**: Admin can deactivate user accounts
 
 ### Dashboard & Analytics
 
@@ -128,9 +128,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | AUTH-02 | Phase 5: Authentication & User Management | Complete |
 | AUTH-03 | Phase 5: Authentication & User Management | Complete |
 | AUTH-04 | Phase 5: Authentication & User Management | Complete |
-| USER-01 | Phase 5: Authentication & User Management | Pending |
-| USER-02 | Phase 5: Authentication & User Management | Pending |
-| USER-03 | Phase 5: Authentication & User Management | Pending |
+| USER-01 | Phase 5: Authentication & User Management | Complete |
+| USER-02 | Phase 5: Authentication & User Management | Complete |
+| USER-03 | Phase 5: Authentication & User Management | Complete |
 | DASH-01 | Phase 6: Core iOS App & Dashboard | Pending |
 | DASH-02 | Phase 6: Core iOS App & Dashboard | Pending |
 | DASH-03 | Phase 6: Core iOS App & Dashboard | Pending |
