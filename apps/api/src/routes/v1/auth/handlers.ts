@@ -215,10 +215,10 @@ export async function refresh(
  * Revokes the provided refresh token. Requires authentication.
  */
 export async function logout(
-  request: FastifyRequest<{ Body: LogoutBody }>,
+  request: FastifyRequest,
   reply: FastifyReply
 ): Promise<void> {
-  const { refreshToken } = request.body;
+  const { refreshToken } = request.body as LogoutBody;
   const userId = request.currentUser.id;
 
   // Find the refresh token belonging to the current user
