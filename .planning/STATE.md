@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in_progress
-stopped_at: Completed 05-01-PLAN.md
-last_updated: "2026-03-15T01:13:00.000Z"
-last_activity: 2026-03-15 -- Completed plan 05-01 (Auth foundation: schema, service, middleware)
+stopped_at: Completed 05-02-PLAN.md
+last_updated: "2026-03-15T01:23:40.558Z"
+last_activity: "2026-03-15 -- Completed plan 05-02 (Auth routes: register, login, refresh, logout)"
 progress:
   total_phases: 9
   completed_phases: 4
   total_plans: 16
-  completed_plans: 13
+  completed_plans: 14
   percent: 81
 ---
 
@@ -26,18 +26,18 @@ See: .planning/PROJECT.md (updated 2026-03-14)
 ## Current Position
 
 Phase: 5 of 9 (Authentication & User Management) -- IN PROGRESS
-Plan: 1 of 4 in current phase (complete)
-Status: Plan 05-01 complete. Next: Plan 05-02 (Auth routes)
-Last activity: 2026-03-15 -- Completed plan 05-01 (Auth foundation: schema migration, auth service, middleware)
+Plan: 2 of 4 in current phase (complete)
+Status: Plan 05-02 complete. Next: Plan 05-03 (Admin endpoints & endpoint protection)
+Last activity: 2026-03-15 -- Completed plan 05-02 (Auth routes: register, login, refresh, logout)
 
-Progress: [████████░░] 81%
+Progress: [█████████░] 88%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 13
+- Total plans completed: 14
 - Average duration: 6 min
-- Total execution time: 1.25 hours
+- Total execution time: 1.33 hours
 
 **By Phase:**
 
@@ -47,10 +47,10 @@ Progress: [████████░░] 81%
 | 2. Stream Recording Infrastructure | 3/3 | 20 min | 7 min |
 | 3. Detection Pipeline | 4/4 | 23 min | 6 min |
 | 4. Audio Snippet System | 2/2 | 10 min | 5 min |
-| 5. Authentication & User Management | 1/4 | 8 min | 8 min |
+| 5. Authentication & User Management | 2/4 | 13 min | 7 min |
 
 **Recent Trend:**
-- Last 5 plans: 03-03 (3 min), 03-04 (10 min), 04-01 (4 min), 04-02 (6 min), 05-01 (8 min)
+- Last 5 plans: 03-04 (10 min), 04-01 (4 min), 04-02 (6 min), 05-01 (8 min), 05-02 (5 min)
 - Trend: stable
 
 *Updated after each plan completion*
@@ -66,6 +66,7 @@ Progress: [████████░░] 81%
 | Phase 04 P01 | 4min | 2 tasks (TDD) | 8 files |
 | Phase 04 P02 | 6min | 2 tasks (TDD+checkpoint) | 8 files |
 | Phase 05 P01 | 8min | 2 tasks (TDD) | 15 files |
+| Phase 05 P02 | 5min | 1 task (TDD) | 6 files |
 
 ## Accumulated Context
 
@@ -113,6 +114,10 @@ Recent decisions affecting current work:
 - [Phase 05-01]: Opaque refresh tokens stored in DB (crypto.randomBytes(32).hex), not JWT-format refresh tokens -- enables server-side revocation
 - [Phase 05-01]: Invite code format XXXX-XXXX-XXXX (uppercase hex, 14 chars) -- human-readable for manual sharing
 - [Phase 05-01]: vitest fileParallelism: false -- integration tests share a database, parallel execution causes FK violations
+- [Phase 05-02]: Invitation code validation checks status, expiry, and usedCount < maxUses before allowing registration
+- [Phase 05-02]: Opaque "Invalid credentials" for all login failure modes -- prevents user enumeration
+- [Phase 05-02]: Refresh token rotation: old token revoked before new pair generated
+- [Phase 05-02]: Logout handler uses generic FastifyRequest with body cast to avoid Fastify preHandler+schema type conflict
 
 ### Pending Todos
 
@@ -126,6 +131,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-15T01:13:00.000Z
-Stopped at: Completed 05-01-PLAN.md
-Resume file: .planning/phases/05-authentication-user-management/05-02-PLAN.md
+Last session: 2026-03-15T01:22:29Z
+Stopped at: Completed 05-02-PLAN.md
+Resume file: .planning/phases/05-authentication-user-management/05-03-PLAN.md

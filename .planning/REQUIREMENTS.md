@@ -25,9 +25,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Authentication
 
-- [ ] **AUTH-01**: User can create account via admin-issued invitation code
+- [x] **AUTH-01**: User can create account via admin-issued invitation code
 - [x] **AUTH-02**: User session persists across app launches (JWT access + refresh tokens)
-- [ ] **AUTH-03**: User can log out from any screen
+- [x] **AUTH-03**: User can log out from any screen
 - [x] **AUTH-04**: Four roles (Admin, Artist, Label, Station) with scoped data access
 
 ### User Management
@@ -124,9 +124,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DETC-03 | Phase 3: Detection Pipeline | Complete |
 | DETC-04 | Phase 6: Core iOS App & Dashboard | Pending |
 | DETC-05 | Phase 1: Project Foundation | Complete |
-| AUTH-01 | Phase 5: Authentication & User Management | Pending |
+| AUTH-01 | Phase 5: Authentication & User Management | Complete |
 | AUTH-02 | Phase 5: Authentication & User Management | Complete |
-| AUTH-03 | Phase 5: Authentication & User Management | Pending |
+| AUTH-03 | Phase 5: Authentication & User Management | Complete |
 | AUTH-04 | Phase 5: Authentication & User Management | Complete |
 | USER-01 | Phase 5: Authentication & User Management | Pending |
 | USER-02 | Phase 5: Authentication & User Management | Pending |
