@@ -117,12 +117,14 @@ Plans:
   3. User can search detections by song title, artist name, or ISRC and filter by date range and station
   4. User can tap any detection to hear the 5-second audio snippet inline without leaving the current view
   5. User can browse historical detections by date range and page through results
-**Plans**: TBD
+**Plans**: 5 plans
 
 Plans:
-- [ ] 06-01: TBD
-- [ ] 06-02: TBD
-- [ ] 06-03: TBD
+- [ ] 06-01-PLAN.md -- Backend API: dashboard aggregate endpoints + airplay events list/search/pagination (TDD)
+- [ ] 06-02-PLAN.md -- iOS auth flow: Keychain, AuthManager, APIClient auth, onboarding views, tab bar
+- [ ] 06-03-PLAN.md -- iOS dashboard: summary cards, Swift Charts play count chart, top stations
+- [ ] 06-04-PLAN.md -- iOS detections: search, date range/station filters, infinite scroll pagination
+- [ ] 06-05-PLAN.md -- iOS snippet playback: AudioPlayerManager, inline expand-in-row player
 
 ### Phase 7: Live Feed
 **Goal**: Users see detections appearing in real time as songs are identified across stations
@@ -177,7 +179,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9
 | 3. Detection Pipeline | 4/4 | Complete | 2026-03-15 |
 | 4. Audio Snippet System | 2/2 | Complete   | 2026-03-15 |
 | 5. Authentication & User Management | 4/4 | Complete   | 2026-03-15 |
-| 6. Core iOS App & Dashboard | 0/TBD | Not started | - |
+| 6. Core iOS App & Dashboard | 0/5 | Not started | - |
 | 7. Live Feed | 0/TBD | Not started | - |
 | 8. Export & Reporting | 0/TBD | Not started | - |
 | 9. Notifications & Station Intelligence | 0/TBD | Not started | - |
