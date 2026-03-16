@@ -1,18 +1,39 @@
-FROM node:20-bookworm-slim
+FROM node:20-bookworm-slim AS base
 
-# Install FFmpeg 7.x for stream recording
+# Install system dependencies
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends ffmpeg && \
+    apt-get install -y --no-install-recommends ffmpeg python3 make g++ && \
     rm -rf /var/lib/apt/lists/*
+
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@10.6.0 --activate
 
 WORKDIR /app
 
-# Create data directory for stream segments
-RUN mkdir -p data/streams
+# Copy workspace config first for dependency caching
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml turbo.json ./
+COPY packages/shared/package.json packages/shared/
+COPY packages/tsconfig/package.json packages/tsconfig/
+COPY apps/api/package.json apps/api/
 
-# Copy and install handled by production deploy pipeline
-# For local development: mount source code as volume
-COPY . .
+# Install dependencies
+RUN pnpm install --frozen-lockfile
+
+# Copy source code
+COPY packages/ packages/
+COPY apps/api/ apps/api/
+
+# Generate Prisma client
+RUN cd apps/api && pnpm prisma generate
+
+# Build shared package and API
+RUN pnpm build
+
+# Create data directory for stream segments
+RUN mkdir -p apps/api/data/streams
+
+WORKDIR /app/apps/api
 
 EXPOSE 3000
+
 CMD ["node", "--import", "tsx", "src/index.ts"]
