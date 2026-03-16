@@ -46,8 +46,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Live Feed
 
-- [ ] **LIVE-01**: User sees real-time detection feed via WebSocket/SSE
-- [ ] **LIVE-02**: Live feed filters by user's role and scope
+- [x] **LIVE-01**: User sees real-time detection feed via WebSocket/SSE
+- [x] **LIVE-02**: Live feed filters by user's role and scope
 
 ### Playback
 
@@ -136,8 +136,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DASH-03 | Phase 6: Core iOS App & Dashboard | Complete |
 | DASH-04 | Phase 6: Core iOS App & Dashboard | Complete |
 | DASH-05 | Phase 6: Core iOS App & Dashboard | Complete |
-| LIVE-01 | Phase 7: Live Feed | Pending |
-| LIVE-02 | Phase 7: Live Feed | Pending |
+| LIVE-01 | Phase 7: Live Feed | Complete |
+| LIVE-02 | Phase 7: Live Feed | Complete |
 | PLAY-01 | Phase 6: Core iOS App & Dashboard | Complete |
 | PLAY-02 | Phase 6: Core iOS App & Dashboard | Complete |
 | EXPT-01 | Phase 8: Export & Reporting | Pending |
