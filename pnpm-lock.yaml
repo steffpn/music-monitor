@@ -47,6 +47,9 @@ importers:
       '@sinclair/typebox':
         specifier: ^0.34.48
         version: 0.34.48
+      apns2:
+        specifier: ^12.2.0
+        version: 12.2.0
       argon2:
         specifier: ^0.44.0
         version: 0.44.0
@@ -1051,6 +1054,10 @@ packages:
   ajv@8.18.0:
     resolution: {integrity: sha512-PlXPeEWMXMZ7sPYOHqmDyCJzcfNrUr3fGNKtezX14ykXOEIvyK81d+qydx89KY5O71FKMPaQ2vBfBFI5NHR63A==}
 
+  apns2@12.2.0:
+    resolution: {integrity: sha512-HySXBzPDMTX8Vxy/ilU9/XcNndJBlgCc+no2+Hj4BaY7CjkStkszufAI6CRK1yDw8K+6ALH+V+mXuQKZe2zeZA==}
+    engines: {node: '>=20'}
+
   argon2@0.44.0:
     resolution: {integrity: sha512-zHPGN3S55sihSQo0dBbK0A5qpi2R31z7HZDZnry3ifOyj8bZZnpZND2gpmhnRGO1V/d555RwBqIK5W4Mrmv3ig==}
     engines: {node: '>=16.17.0'}
@@ -1933,6 +1940,10 @@ packages:
 
   undici-types@7.18.2:
     resolution: {integrity: sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w==}
+
+  undici@7.24.4:
+    resolution: {integrity: sha512-BM/JzwwaRXxrLdElV2Uo6cTLEjhSb3WXboncJamZ15NgUURmvlXvxa6xkwIOILIjPNo9i8ku136ZvWV0Uly8+w==}
+    engines: {node: '>=20.18.1'}
 
   unicode-properties@1.4.1:
     resolution: {integrity: sha512-CLjCCLQ6UuMxWnbIylkisbRj31qxHPAurvena/0iwSVbQ2G1VY5/HjV0IRabOEbDHlzZlRdCrD4NhB0JtU40Pg==}
@@ -3318,6 +3329,11 @@ snapshots:
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
 
+  apns2@12.2.0:
+    dependencies:
+      fast-jwt: 6.1.0
+      undici: 7.24.4
+
   argon2@0.44.0:
     dependencies:
       '@phc/format': 1.0.0
@@ -4209,6 +4225,8 @@ snapshots:
   typescript@5.9.3: {}
 
   undici-types@7.18.2: {}
+
+  undici@7.24.4: {}
 
   unicode-properties@1.4.1:
     dependencies:

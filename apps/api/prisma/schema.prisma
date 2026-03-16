@@ -87,21 +87,38 @@ model NoMatchCallback {
 }
 
 model User {
-  id                  Int            @id @default(autoincrement())
-  email               String         @unique
-  passwordHash        String         @map("password_hash")
-  name                String
-  role                String
-  isActive            Boolean        @default(true) @map("is_active")
-  lastLoginAt         DateTime?      @map("last_login_at")
-  createdAt           DateTime       @default(now()) @map("created_at")
-  updatedAt           DateTime       @updatedAt @map("updated_at")
+  id                    Int            @id @default(autoincrement())
+  email                 String         @unique
+  passwordHash          String         @map("password_hash")
+  name                  String
+  role                  String
+  isActive              Boolean        @default(true) @map("is_active")
+  dailyDigestEnabled    Boolean        @default(true) @map("daily_digest_enabled")
+  weeklyDigestEnabled   Boolean        @default(true) @map("weekly_digest_enabled")
+  lastLoginAt           DateTime?      @map("last_login_at")
+  createdAt             DateTime       @default(now()) @map("created_at")
+  updatedAt             DateTime       @updatedAt @map("updated_at")
 
-  invitationsCreated  Invitation[]   @relation("InvitationsCreated")
-  scopes              UserScope[]
-  refreshTokens       RefreshToken[]
+  invitationsCreated    Invitation[]   @relation("InvitationsCreated")
+  scopes                UserScope[]
+  refreshTokens         RefreshToken[]
+  deviceTokens          DeviceToken[]
 
   @@map("users")
+}
+
+model DeviceToken {
+  id          Int      @id @default(autoincrement())
+  userId      Int      @map("user_id")
+  token       String   @unique
+  environment String   @default("production")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("device_tokens")
 }
 
 model Invitation {
