@@ -45,6 +45,14 @@ struct SettingsView: View {
                     Label("Notifications", systemImage: "bell")
                 }
 
+                if authManager.currentUser?.role.uppercased() == "STATION" {
+                    NavigationLink {
+                        CompetitorListView()
+                    } label: {
+                        Label("Competitor Stations", systemImage: "antenna.radiowaves.left.and.right")
+                    }
+                }
+
                 HStack {
                     Text("Version")
                     Spacer()
