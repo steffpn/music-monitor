@@ -20,7 +20,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **DETC-01**: System receives and processes ACRCloud detection callbacks via webhook endpoint
 - [x] **DETC-02**: Each detection stores: station, timestamp, song, artist, duration, ISRC, confidence score
 - [x] **DETC-03**: Raw callbacks are deduplicated into single airplay events (gap-tolerance aggregation)
-- [ ] **DETC-04**: User can query historical detections by date range
+- [x] **DETC-04**: User can query historical detections by date range
 - [x] **DETC-05**: Detection data is time-partitioned (TimescaleDB) for query performance at scale
 
 ### Authentication
@@ -38,11 +38,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Dashboard & Analytics
 
-- [ ] **DASH-01**: User sees aggregated play counts (daily/weekly/monthly) on dashboard
-- [ ] **DASH-02**: User sees top stations playing their music
-- [ ] **DASH-03**: User sees station-level breakdown with trend data over time
-- [ ] **DASH-04**: User can search by song title, artist name, or ISRC
-- [ ] **DASH-05**: User can filter results by date range and station
+- [x] **DASH-01**: User sees aggregated play counts (daily/weekly/monthly) on dashboard
+- [x] **DASH-02**: User sees top stations playing their music
+- [x] **DASH-03**: User sees station-level breakdown with trend data over time
+- [x] **DASH-04**: User can search by song title, artist name, or ISRC
+- [x] **DASH-05**: User can filter results by date range and station
 
 ### Live Feed
 
@@ -122,7 +122,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DETC-01 | Phase 3: Detection Pipeline | Complete |
 | DETC-02 | Phase 3: Detection Pipeline | Complete |
 | DETC-03 | Phase 3: Detection Pipeline | Complete |
-| DETC-04 | Phase 6: Core iOS App & Dashboard | Pending |
+| DETC-04 | Phase 6: Core iOS App & Dashboard | Complete |
 | DETC-05 | Phase 1: Project Foundation | Complete |
 | AUTH-01 | Phase 5: Authentication & User Management | Complete |
 | AUTH-02 | Phase 5: Authentication & User Management | Complete |
@@ -131,11 +131,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | USER-01 | Phase 5: Authentication & User Management | Complete |
 | USER-02 | Phase 5: Authentication & User Management | Complete |
 | USER-03 | Phase 5: Authentication & User Management | Complete |
-| DASH-01 | Phase 6: Core iOS App & Dashboard | Pending |
-| DASH-02 | Phase 6: Core iOS App & Dashboard | Pending |
-| DASH-03 | Phase 6: Core iOS App & Dashboard | Pending |
-| DASH-04 | Phase 6: Core iOS App & Dashboard | Pending |
-| DASH-05 | Phase 6: Core iOS App & Dashboard | Pending |
+| DASH-01 | Phase 6: Core iOS App & Dashboard | Complete |
+| DASH-02 | Phase 6: Core iOS App & Dashboard | Complete |
+| DASH-03 | Phase 6: Core iOS App & Dashboard | Complete |
+| DASH-04 | Phase 6: Core iOS App & Dashboard | Complete |
+| DASH-05 | Phase 6: Core iOS App & Dashboard | Complete |
 | LIVE-01 | Phase 7: Live Feed | Pending |
 | LIVE-02 | Phase 7: Live Feed | Pending |
 | PLAY-01 | Phase 6: Core iOS App & Dashboard | Pending |

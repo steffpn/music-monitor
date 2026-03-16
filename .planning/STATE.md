@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: completed
-stopped_at: Phase 6 context gathered
-last_updated: "2026-03-16T07:02:11.114Z"
-last_activity: 2026-03-15 -- Completed plan 05-04 (Admin web dashboard) -- Phase 5 complete
+status: in-progress
+stopped_at: Completed 06-01-PLAN.md
+last_updated: "2026-03-16T07:39:29Z"
+last_activity: 2026-03-16 -- Completed plan 06-01 (Dashboard & Airplay Events API)
 progress:
   total_phases: 9
   completed_phases: 5
-  total_plans: 16
-  completed_plans: 16
-  percent: 100
+  total_plans: 21
+  completed_plans: 17
+  percent: 81
 ---
 
 # Project State
@@ -21,23 +21,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-14)
 
 **Core value:** Artists and labels can see exactly where, when, and how often their music is being played across Romanian radio and TV -- with audio proof.
-**Current focus:** Phase 5: Authentication & User Management -- COMPLETE
+**Current focus:** Phase 6: Core iOS App & Dashboard -- IN PROGRESS
 
 ## Current Position
 
-Phase: 5 of 9 (Authentication & User Management) -- COMPLETE
-Plan: 4 of 4 in current phase (complete)
-Status: Phase 5 complete. Next: Phase 6 (Core iOS App & Dashboard)
-Last activity: 2026-03-15 -- Completed plan 05-04 (Admin web dashboard) -- Phase 5 complete
+Phase: 6 of 9 (Core iOS App & Dashboard)
+Plan: 1 of 5 in current phase (complete)
+Status: Plan 06-01 complete. Next: 06-02
+Last activity: 2026-03-16 -- Completed plan 06-01 (Dashboard & Airplay Events API)
 
-Progress: [██████████] 100%
+Progress: [████████░░] 81%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 16
+- Total plans completed: 17
 - Average duration: 6 min
-- Total execution time: 1.51 hours
+- Total execution time: 1.68 hours
 
 **By Phase:**
 
@@ -48,9 +48,10 @@ Progress: [██████████] 100%
 | 3. Detection Pipeline | 4/4 | 23 min | 6 min |
 | 4. Audio Snippet System | 2/2 | 10 min | 5 min |
 | 5. Authentication & User Management | 4/4 | 24 min | 6 min |
+| 6. Core iOS App & Dashboard | 1/5 | 10 min | 10 min |
 
 **Recent Trend:**
-- Last 5 plans: 04-02 (6 min), 05-01 (8 min), 05-02 (5 min), 05-03 (6 min), 05-04 (5 min)
+- Last 5 plans: 05-01 (8 min), 05-02 (5 min), 05-03 (6 min), 05-04 (5 min), 06-01 (10 min)
 - Trend: stable
 
 *Updated after each plan completion*
@@ -69,6 +70,7 @@ Progress: [██████████] 100%
 | Phase 05 P02 | 5min | 1 task (TDD) | 6 files |
 | Phase 05 P03 | 6min | 2 tasks (TDD) | 14 files |
 | Phase 05 P04 | 5min | 2 tasks (auto+checkpoint) | 4 files |
+| Phase 06 P01 | 10min | 2 tasks (TDD) | 9 files |
 
 ## Accumulated Context
 
@@ -126,6 +128,11 @@ Recent decisions affecting current work:
 - [Phase 05-03]: Scope update uses deleteMany + create in transaction for atomic replacement
 - [Phase 05-04]: Vanilla HTML/JS/CSS admin dashboard with no build step -- zero complexity admin tool
 - [Phase 05-04]: @fastify/static with decorateReply: false to avoid decorator conflicts
+- [Phase 06-01]: Raw SQL via Prisma.$queryRaw for TimescaleDB continuous aggregate queries (Prisma ORM cannot query materialized views)
+- [Phase 06-01]: BigInt cast via ::int in SQL to avoid JavaScript BigInt serialization issues
+- [Phase 06-01]: Prisma.join() for parameterized IN clauses with station ID arrays (SQL injection safe)
+- [Phase 06-01]: Cursor pagination uses id < cursor with descending order, fetch limit+1 to detect hasMore
+- [Phase 06-01]: ISRC search uses case-insensitive equals (not contains) since ISRCs are exact codes
 
 ### Pending Todos
 
@@ -139,6 +146,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-16T07:02:11.109Z
-Stopped at: Phase 6 context gathered
-Resume file: .planning/phases/06-core-ios-app-dashboard/06-CONTEXT.md
+Last session: 2026-03-16T07:39:29Z
+Stopped at: Completed 06-01-PLAN.md
+Resume file: .planning/phases/06-core-ios-app-dashboard/06-02-PLAN.md
