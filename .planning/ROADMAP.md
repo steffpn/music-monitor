@@ -18,7 +18,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 4: Audio Snippet System** - 5-second snippet capture, R2 storage, presigned URL serving (completed 2026-03-15)
 - [x] **Phase 5: Authentication & User Management** - Invite-only auth, JWT sessions, RBAC, admin user ops (completed 2026-03-15)
 - [x] **Phase 6: Core iOS App & Dashboard** - iOS app with auth flow, dashboard, detection browsing, search, playback (completed 2026-03-16)
-- [ ] **Phase 7: Live Feed** - Real-time detection stream via SSE with role-based filtering
+- [x] **Phase 7: Live Feed** - Real-time detection stream via SSE with role-based filtering (completed 2026-03-16)
 - [ ] **Phase 8: Export & Reporting** - CSV data export and branded PDF report generation
 - [ ] **Phase 9: Notifications & Station Intelligence** - Digest push notifications and competitor station views
 
@@ -181,6 +181,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9
 | 4. Audio Snippet System | 2/2 | Complete   | 2026-03-15 |
 | 5. Authentication & User Management | 4/4 | Complete   | 2026-03-15 |
 | 6. Core iOS App & Dashboard | 5/5 | Complete | 2026-03-16 |
-| 7. Live Feed | 0/2 | Not started | - |
+| 7. Live Feed | 2/2 | Complete   | 2026-03-16 |
 | 8. Export & Reporting | 0/TBD | Not started | - |
 | 9. Notifications & Station Intelligence | 0/TBD | Not started | - |
