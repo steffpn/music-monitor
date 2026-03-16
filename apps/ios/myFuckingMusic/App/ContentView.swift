@@ -1,24 +1,41 @@
 import SwiftUI
 
+/// Auth-gated root view.
+/// Shows MainTabView when authenticated, auth flow when not.
 struct ContentView: View {
+    @Environment(AuthManager.self) private var authManager
+    @State private var authViewModel = AuthViewModel()
+
     var body: some View {
-        VStack(spacing: 16) {
-            Image(systemName: "music.note.list")
-                .font(.system(size: 64))
-                .foregroundStyle(.tint)
-
-            Text("myFuckingMusic")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-
-            Text("Radio & TV Detection Dashboard")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+        Group {
+            if authManager.isLoading {
+                // Loading state while checking stored tokens
+                VStack(spacing: 16) {
+                    ProgressView()
+                    Text("Loading...")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
+            } else if authManager.isAuthenticated {
+                MainTabView()
+            } else {
+                NavigationStack {
+                    WelcomeView()
+                }
+                .environment(authViewModel)
+            }
         }
-        .padding()
+        .task {
+            // Configure view model with auth manager
+            authViewModel.configure(authManager: authManager)
+
+            // Check stored tokens on app launch
+            await authManager.checkStoredTokens()
+        }
     }
 }
 
 #Preview {
     ContentView()
+        .environment(AuthManager())
 }

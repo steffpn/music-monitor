@@ -19,6 +19,13 @@
 		A10000010000000000000010 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000010 /* KeychainHelper.swift */; };
 		A10000010000000000000011 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000011 /* AuthManager.swift */; };
 		A10000010000000000000012 /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000012 /* AuthResponse.swift */; };
+		A10000010000000000000013 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000013 /* AuthViewModel.swift */; };
+		A10000010000000000000014 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000014 /* WelcomeView.swift */; };
+		A10000010000000000000015 /* InviteCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000015 /* InviteCodeView.swift */; };
+		A10000010000000000000016 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000016 /* RegisterView.swift */; };
+		A10000010000000000000017 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000017 /* LoginView.swift */; };
+		A10000010000000000000018 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000018 /* MainTabView.swift */; };
+		A10000010000000000000019 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000019 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +41,13 @@
 		A20000010000000000000010 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		A20000010000000000000011 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		A20000010000000000000012 /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
+		A20000010000000000000013 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		A20000010000000000000014 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		A20000010000000000000015 /* InviteCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteCodeView.swift; sourceTree = "<group>"; };
+		A20000010000000000000016 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		A20000010000000000000017 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		A20000010000000000000018 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		A20000010000000000000019 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		A30000010000000000000001 /* myFuckingMusic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myFuckingMusic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -87,6 +101,7 @@
 		A50000010000000000000004 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				A20000010000000000000013 /* AuthViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -94,8 +109,30 @@
 		A50000010000000000000005 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A50000010000000000000010 /* Auth */,
+				A50000010000000000000011 /* Settings */,
+				A20000010000000000000018 /* MainTabView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		A50000010000000000000010 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				A20000010000000000000014 /* WelcomeView.swift */,
+				A20000010000000000000015 /* InviteCodeView.swift */,
+				A20000010000000000000016 /* RegisterView.swift */,
+				A20000010000000000000017 /* LoginView.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		A50000010000000000000011 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				A20000010000000000000019 /* SettingsView.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		A50000010000000000000006 /* Services */ = {
@@ -200,6 +237,13 @@
 				A10000010000000000000010 /* KeychainHelper.swift in Sources */,
 				A10000010000000000000011 /* AuthManager.swift in Sources */,
 				A10000010000000000000012 /* AuthResponse.swift in Sources */,
+				A10000010000000000000013 /* AuthViewModel.swift in Sources */,
+				A10000010000000000000014 /* WelcomeView.swift in Sources */,
+				A10000010000000000000015 /* InviteCodeView.swift in Sources */,
+				A10000010000000000000016 /* RegisterView.swift in Sources */,
+				A10000010000000000000017 /* LoginView.swift in Sources */,
+				A10000010000000000000018 /* MainTabView.swift in Sources */,
+				A10000010000000000000019 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
