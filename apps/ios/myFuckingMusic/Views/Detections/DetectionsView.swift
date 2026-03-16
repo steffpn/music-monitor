@@ -1,9 +1,11 @@
 import SwiftUI
+import UIKit
 
 /// Main detections tab.
 /// Shows paginated airplay events with search bar, filter chips, and infinite scroll.
 struct DetectionsView: View {
     @State private var viewModel = DetectionsViewModel()
+    @State private var exportViewModel = ExportViewModel()
     @Environment(AudioPlayerManager.self) private var audioPlayer
 
     var body: some View {
@@ -38,6 +40,76 @@ struct DetectionsView: View {
                 }
             }
             .navigationTitle("Detections")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Menu {
+                        Button {
+                            Task {
+                                await exportViewModel.exportCSV(
+                                    query: viewModel.searchQuery.isEmpty ? nil : viewModel.searchQuery,
+                                    startDate: viewModel.startDate,
+                                    endDate: viewModel.endDate,
+                                    stationId: viewModel.selectedStationId
+                                )
+                            }
+                        } label: {
+                            Label("Export CSV", systemImage: "tablecells")
+                        }
+
+                        Button {
+                            Task {
+                                await exportViewModel.exportPDF(
+                                    query: viewModel.searchQuery.isEmpty ? nil : viewModel.searchQuery,
+                                    startDate: viewModel.startDate,
+                                    endDate: viewModel.endDate,
+                                    stationId: viewModel.selectedStationId
+                                )
+                            }
+                        } label: {
+                            Label("Export PDF", systemImage: "doc.richtext")
+                        }
+                    } label: {
+                        Image(systemName: "square.and.arrow.up")
+                    }
+                    .disabled(exportViewModel.isExporting)
+                }
+            }
+            .overlay {
+                if exportViewModel.isExporting {
+                    ZStack {
+                        Color.black.opacity(0.3)
+                            .ignoresSafeArea()
+
+                        VStack(spacing: 12) {
+                            ProgressView()
+                                .controlSize(.large)
+                            Text("Exporting...")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                        }
+                        .padding(24)
+                        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 12))
+                    }
+                }
+            }
+            .alert(
+                "Export Error",
+                isPresented: Binding(
+                    get: { exportViewModel.error != nil },
+                    set: { if !$0 { exportViewModel.error = nil } }
+                )
+            ) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                if let error = exportViewModel.error {
+                    Text(error)
+                }
+            }
+            .sheet(isPresented: $exportViewModel.showShareSheet) {
+                if let url = exportViewModel.exportedFileURL {
+                    ShareSheet(url: url)
+                }
+            }
             .searchable(
                 text: $viewModel.searchQuery,
                 prompt: "Search songs, artists, ISRC..."
@@ -115,6 +187,20 @@ struct DetectionsView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
+}
+
+// MARK: - Share Sheet
+
+/// UIActivityViewController wrapper for presenting downloaded export files.
+/// ShareLink requires compile-time item; since we download async, UIActivityViewController is needed.
+private struct ShareSheet: UIViewControllerRepresentable {
+    let url: URL
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: [url], applicationActivities: nil)
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
 
 #Preview {

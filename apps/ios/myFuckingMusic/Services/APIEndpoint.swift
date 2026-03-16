@@ -22,6 +22,10 @@ enum APIEndpoint: Sendable {
     // Stations
     case stations
 
+    // Exports
+    case exportCSV(query: String?, startDate: String?, endDate: String?, stationId: Int?)
+    case exportPDF(startDate: String, endDate: String, query: String?, stationId: Int?)
+
     var path: String {
         switch self {
         case .health:
@@ -44,6 +48,10 @@ enum APIEndpoint: Sendable {
             return "/airplay-events/\(eventId)/snippet"
         case .stations:
             return "/stations"
+        case .exportCSV:
+            return "/exports/csv"
+        case .exportPDF:
+            return "/exports/pdf"
         }
     }
 
@@ -51,7 +59,8 @@ enum APIEndpoint: Sendable {
         switch self {
         case .register, .login, .refresh, .logout:
             return .POST
-        case .health, .dashboardSummary, .topStations, .airplayEvents, .snippetUrl, .stations:
+        case .health, .dashboardSummary, .topStations, .airplayEvents, .snippetUrl, .stations,
+             .exportCSV, .exportPDF:
             return .GET
         }
     }
@@ -101,6 +110,23 @@ enum APIEndpoint: Sendable {
             if let query, !query.isEmpty { items.append(URLQueryItem(name: "q", value: query)) }
             if let startDate { items.append(URLQueryItem(name: "startDate", value: startDate)) }
             if let endDate { items.append(URLQueryItem(name: "endDate", value: endDate)) }
+            if let stationId { items.append(URLQueryItem(name: "stationId", value: String(stationId))) }
+            return items
+
+        case .exportCSV(let query, let startDate, let endDate, let stationId):
+            var items: [URLQueryItem] = []
+            if let query, !query.isEmpty { items.append(URLQueryItem(name: "q", value: query)) }
+            if let startDate { items.append(URLQueryItem(name: "startDate", value: startDate)) }
+            if let endDate { items.append(URLQueryItem(name: "endDate", value: endDate)) }
+            if let stationId { items.append(URLQueryItem(name: "stationId", value: String(stationId))) }
+            return items.isEmpty ? nil : items
+
+        case .exportPDF(let startDate, let endDate, let query, let stationId):
+            var items: [URLQueryItem] = [
+                URLQueryItem(name: "startDate", value: startDate),
+                URLQueryItem(name: "endDate", value: endDate),
+            ]
+            if let query, !query.isEmpty { items.append(URLQueryItem(name: "q", value: query)) }
             if let stationId { items.append(URLQueryItem(name: "stationId", value: String(stationId))) }
             return items
 
