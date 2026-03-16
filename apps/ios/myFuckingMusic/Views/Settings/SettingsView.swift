@@ -39,6 +39,12 @@ struct SettingsView: View {
 
             // App info section
             Section("App") {
+                NavigationLink {
+                    NotificationsSettingsView()
+                } label: {
+                    Label("Notifications", systemImage: "bell")
+                }
+
                 HStack {
                     Text("Version")
                     Spacer()
