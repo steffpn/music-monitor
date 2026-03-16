@@ -22,9 +22,23 @@ enum APIEndpoint: Sendable {
     // Stations
     case stations
 
+    // Competitors
+    case watchedStations
+    case addWatchedStation(stationId: Int)
+    case removeWatchedStation(stationId: Int)
+    case competitorSummary(period: String)
+    case competitorDetail(stationId: Int, period: String)
+
     // Exports
     case exportCSV(query: String?, startDate: String?, endDate: String?, stationId: Int?)
     case exportPDF(startDate: String, endDate: String, query: String?, stationId: Int?)
+
+    // Notifications
+    case notificationPreferences
+    case updateNotificationPreferences(daily: Bool?, weekly: Bool?)
+    case registerDeviceToken(token: String, environment: String?)
+    case deleteDeviceToken(token: String)
+    case digestDetail(date: String, type: String)
 
     var path: String {
         switch self {
@@ -48,19 +62,38 @@ enum APIEndpoint: Sendable {
             return "/airplay-events/\(eventId)/snippet"
         case .stations:
             return "/stations"
+        case .watchedStations, .addWatchedStation:
+            return "/competitors/watched"
+        case .removeWatchedStation(let stationId):
+            return "/competitors/watched/\(stationId)"
+        case .competitorSummary:
+            return "/competitors/summary"
+        case .competitorDetail(let stationId, _):
+            return "/competitors/\(stationId)/detail"
         case .exportCSV:
             return "/exports/csv"
         case .exportPDF:
             return "/exports/pdf"
+        case .notificationPreferences, .updateNotificationPreferences:
+            return "/notifications/preferences"
+        case .registerDeviceToken, .deleteDeviceToken:
+            return "/notifications/device-token"
+        case .digestDetail(let date, _):
+            return "/notifications/digest/\(date)"
         }
     }
 
     var method: HTTPMethod {
         switch self {
-        case .register, .login, .refresh, .logout:
+        case .register, .login, .refresh, .logout, .addWatchedStation, .registerDeviceToken:
             return .POST
+        case .updateNotificationPreferences:
+            return .PUT
+        case .removeWatchedStation, .deleteDeviceToken:
+            return .DELETE
         case .health, .dashboardSummary, .topStations, .airplayEvents, .snippetUrl, .stations,
-             .exportCSV, .exportPDF:
+             .watchedStations, .competitorSummary, .competitorDetail,
+             .exportCSV, .exportPDF, .notificationPreferences, .digestDetail:
             return .GET
         }
     }
@@ -85,6 +118,22 @@ enum APIEndpoint: Sendable {
         case .logout(let refreshToken):
             return try? encoder.encode(
                 LogoutRequest(refreshToken: refreshToken)
+            )
+        case .addWatchedStation(let stationId):
+            return try? encoder.encode(
+                AddWatchedStationRequest(stationId: stationId)
+            )
+        case .updateNotificationPreferences(let daily, let weekly):
+            return try? encoder.encode(
+                UpdatePreferencesRequest(dailyDigestEnabled: daily, weeklyDigestEnabled: weekly)
+            )
+        case .registerDeviceToken(let token, let environment):
+            return try? encoder.encode(
+                RegisterDeviceTokenRequest(token: token, environment: environment)
+            )
+        case .deleteDeviceToken(let token):
+            return try? encoder.encode(
+                DeleteDeviceTokenRequest(token: token)
             )
         default:
             return nil
@@ -129,6 +178,15 @@ enum APIEndpoint: Sendable {
             if let query, !query.isEmpty { items.append(URLQueryItem(name: "q", value: query)) }
             if let stationId { items.append(URLQueryItem(name: "stationId", value: String(stationId))) }
             return items
+
+        case .competitorSummary(let period):
+            return [URLQueryItem(name: "period", value: period)]
+
+        case .competitorDetail(_, let period):
+            return [URLQueryItem(name: "period", value: period)]
+
+        case .digestDetail(_, let type):
+            return [URLQueryItem(name: "type", value: type)]
 
         default:
             return nil

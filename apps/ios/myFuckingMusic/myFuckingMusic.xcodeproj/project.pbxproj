@@ -49,6 +49,18 @@
 		A10000010000000000000040 /* NewDetectionsPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000040 /* NewDetectionsPill.swift */; };
 		A10000010000000000000041 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000041 /* ExportService.swift */; };
 		A10000010000000000000042 /* ExportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000042 /* ExportViewModel.swift */; };
+		A10000010000000000000043 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000043 /* AppDelegate.swift */; };
+		A10000010000000000000044 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000044 /* NotificationManager.swift */; };
+		A10000010000000000000045 /* NotificationModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000045 /* NotificationModels.swift */; };
+		A10000010000000000000046 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000046 /* NotificationsViewModel.swift */; };
+		A10000010000000000000047 /* NotificationsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000047 /* NotificationsSettingsView.swift */; };
+		A10000010000000000000048 /* DigestDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000048 /* DigestDetailView.swift */; };
+		A10000010000000000000049 /* CompetitorModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000049 /* CompetitorModels.swift */; };
+		A10000010000000000000050 /* CompetitorListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000050 /* CompetitorListViewModel.swift */; };
+		A10000010000000000000051 /* CompetitorDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000051 /* CompetitorDetailViewModel.swift */; };
+		A10000010000000000000052 /* CompetitorListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000052 /* CompetitorListView.swift */; };
+		A10000010000000000000053 /* CompetitorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000053 /* CompetitorDetailView.swift */; };
+		A10000010000000000000054 /* CompetitorStationPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000054 /* CompetitorStationPickerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +106,18 @@
 		A20000010000000000000040 /* NewDetectionsPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDetectionsPill.swift; sourceTree = "<group>"; };
 		A20000010000000000000041 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
 		A20000010000000000000042 /* ExportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportViewModel.swift; sourceTree = "<group>"; };
+		A20000010000000000000043 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A20000010000000000000044 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		A20000010000000000000045 /* NotificationModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModels.swift; sourceTree = "<group>"; };
+		A20000010000000000000046 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
+		A20000010000000000000047 /* NotificationsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsSettingsView.swift; sourceTree = "<group>"; };
+		A20000010000000000000048 /* DigestDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigestDetailView.swift; sourceTree = "<group>"; };
+		A20000010000000000000049 /* CompetitorModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompetitorModels.swift; sourceTree = "<group>"; };
+		A20000010000000000000050 /* CompetitorListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompetitorListViewModel.swift; sourceTree = "<group>"; };
+		A20000010000000000000051 /* CompetitorDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompetitorDetailViewModel.swift; sourceTree = "<group>"; };
+		A20000010000000000000052 /* CompetitorListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompetitorListView.swift; sourceTree = "<group>"; };
+		A20000010000000000000053 /* CompetitorDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompetitorDetailView.swift; sourceTree = "<group>"; };
+		A20000010000000000000054 /* CompetitorStationPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompetitorStationPickerView.swift; sourceTree = "<group>"; };
 		A30000010000000000000001 /* myFuckingMusic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myFuckingMusic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -126,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				A20000010000000000000001 /* myFuckingMusicApp.swift */,
+				A20000010000000000000043 /* AppDelegate.swift */,
 				A20000010000000000000002 /* ContentView.swift */,
 			);
 			path = App;
@@ -142,6 +167,8 @@
 				A20000010000000000000012 /* AuthResponse.swift */,
 				A20000010000000000000020 /* PaginatedResponse.swift */,
 				A20000010000000000000023 /* DashboardModels.swift */,
+				A20000010000000000000045 /* NotificationModels.swift */,
+				A20000010000000000000049 /* CompetitorModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -154,6 +181,9 @@
 				A20000010000000000000024 /* DashboardViewModel.swift */,
 				A20000010000000000000038 /* LiveFeedViewModel.swift */,
 				A20000010000000000000042 /* ExportViewModel.swift */,
+				A20000010000000000000046 /* NotificationsViewModel.swift */,
+				A20000010000000000000050 /* CompetitorListViewModel.swift */,
+				A20000010000000000000051 /* CompetitorDetailViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -162,9 +192,11 @@
 			isa = PBXGroup;
 			children = (
 				A50000010000000000000010 /* Auth */,
+				A50000010000000000000018 /* Competitors */,
 				A50000010000000000000012 /* Dashboard */,
 				A50000010000000000000014 /* Detections */,
 				A50000010000000000000016 /* LiveFeed */,
+				A50000010000000000000017 /* Notifications */,
 				A50000010000000000000015 /* Search */,
 				A50000010000000000000011 /* Settings */,
 				A50000010000000000000013 /* Shared */,
@@ -197,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				A20000010000000000000019 /* SettingsView.swift */,
+				A20000010000000000000047 /* NotificationsSettingsView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -250,6 +283,7 @@
 				A20000010000000000000035 /* AudioPlayerManager.swift */,
 				A20000010000000000000037 /* SSEClient.swift */,
 				A20000010000000000000041 /* ExportService.swift */,
+				A20000010000000000000044 /* NotificationManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -275,6 +309,24 @@
 				A30000010000000000000001 /* myFuckingMusic.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		A50000010000000000000017 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				A20000010000000000000048 /* DigestDetailView.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		A50000010000000000000018 /* Competitors */ = {
+			isa = PBXGroup;
+			children = (
+				A20000010000000000000052 /* CompetitorListView.swift */,
+				A20000010000000000000053 /* CompetitorDetailView.swift */,
+				A20000010000000000000054 /* CompetitorStationPickerView.swift */,
+			);
+			path = Competitors;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -376,6 +428,18 @@
 				A10000010000000000000040 /* NewDetectionsPill.swift in Sources */,
 				A10000010000000000000041 /* ExportService.swift in Sources */,
 				A10000010000000000000042 /* ExportViewModel.swift in Sources */,
+				A10000010000000000000043 /* AppDelegate.swift in Sources */,
+				A10000010000000000000044 /* NotificationManager.swift in Sources */,
+				A10000010000000000000045 /* NotificationModels.swift in Sources */,
+				A10000010000000000000046 /* NotificationsViewModel.swift in Sources */,
+				A10000010000000000000047 /* NotificationsSettingsView.swift in Sources */,
+				A10000010000000000000048 /* DigestDetailView.swift in Sources */,
+				A10000010000000000000049 /* CompetitorModels.swift in Sources */,
+				A10000010000000000000050 /* CompetitorListViewModel.swift in Sources */,
+				A10000010000000000000051 /* CompetitorDetailViewModel.swift in Sources */,
+				A10000010000000000000052 /* CompetitorListView.swift in Sources */,
+				A10000010000000000000053 /* CompetitorDetailView.swift in Sources */,
+				A10000010000000000000054 /* CompetitorStationPickerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
