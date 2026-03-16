@@ -26,6 +26,17 @@
 		A10000010000000000000017 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000017 /* LoginView.swift */; };
 		A10000010000000000000018 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000018 /* MainTabView.swift */; };
 		A10000010000000000000019 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000019 /* SettingsView.swift */; };
+		A10000010000000000000020 /* PaginatedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000020 /* PaginatedResponse.swift */; };
+		A10000010000000000000021 /* DetectionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000021 /* DetectionsViewModel.swift */; };
+		A10000010000000000000022 /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000022 /* DateFormatters.swift */; };
+		A10000010000000000000023 /* DashboardModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000023 /* DashboardModels.swift */; };
+		A10000010000000000000024 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000024 /* DashboardViewModel.swift */; };
+		A10000010000000000000025 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000025 /* DashboardView.swift */; };
+		A10000010000000000000026 /* SummaryCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000026 /* SummaryCardsView.swift */; };
+		A10000010000000000000027 /* PlayCountChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000027 /* PlayCountChartView.swift */; };
+		A10000010000000000000028 /* TopStationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000028 /* TopStationsView.swift */; };
+		A10000010000000000000029 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000029 /* LoadingView.swift */; };
+		A10000010000000000000030 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000030 /* ErrorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +59,17 @@
 		A20000010000000000000017 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A20000010000000000000018 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		A20000010000000000000019 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		A20000010000000000000020 /* PaginatedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedResponse.swift; sourceTree = "<group>"; };
+		A20000010000000000000021 /* DetectionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionsViewModel.swift; sourceTree = "<group>"; };
+		A20000010000000000000022 /* DateFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
+		A20000010000000000000023 /* DashboardModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardModels.swift; sourceTree = "<group>"; };
+		A20000010000000000000024 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
+		A20000010000000000000025 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		A20000010000000000000026 /* SummaryCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryCardsView.swift; sourceTree = "<group>"; };
+		A20000010000000000000027 /* PlayCountChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCountChartView.swift; sourceTree = "<group>"; };
+		A20000010000000000000028 /* TopStationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopStationsView.swift; sourceTree = "<group>"; };
+		A20000010000000000000029 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		A20000010000000000000030 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		A30000010000000000000001 /* myFuckingMusic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myFuckingMusic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -94,6 +116,8 @@
 				A20000010000000000000006 /* AudioSnippet.swift */,
 				A20000010000000000000007 /* Invitation.swift */,
 				A20000010000000000000012 /* AuthResponse.swift */,
+				A20000010000000000000020 /* PaginatedResponse.swift */,
+				A20000010000000000000023 /* DashboardModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -102,6 +126,8 @@
 			isa = PBXGroup;
 			children = (
 				A20000010000000000000013 /* AuthViewModel.swift */,
+				A20000010000000000000021 /* DetectionsViewModel.swift */,
+				A20000010000000000000024 /* DashboardViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -110,7 +136,9 @@
 			isa = PBXGroup;
 			children = (
 				A50000010000000000000010 /* Auth */,
+				A50000010000000000000012 /* Dashboard */,
 				A50000010000000000000011 /* Settings */,
+				A50000010000000000000013 /* Shared */,
 				A20000010000000000000018 /* MainTabView.swift */,
 			);
 			path = Views;
@@ -135,6 +163,26 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		A50000010000000000000012 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				A20000010000000000000025 /* DashboardView.swift */,
+				A20000010000000000000026 /* SummaryCardsView.swift */,
+				A20000010000000000000027 /* PlayCountChartView.swift */,
+				A20000010000000000000028 /* TopStationsView.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		A50000010000000000000013 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				A20000010000000000000029 /* LoadingView.swift */,
+				A20000010000000000000030 /* ErrorView.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		A50000010000000000000006 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +197,7 @@
 		A50000010000000000000007 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				A20000010000000000000022 /* DateFormatters.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -244,6 +293,17 @@
 				A10000010000000000000017 /* LoginView.swift in Sources */,
 				A10000010000000000000018 /* MainTabView.swift in Sources */,
 				A10000010000000000000019 /* SettingsView.swift in Sources */,
+				A10000010000000000000020 /* PaginatedResponse.swift in Sources */,
+				A10000010000000000000021 /* DetectionsViewModel.swift in Sources */,
+				A10000010000000000000022 /* DateFormatters.swift in Sources */,
+				A10000010000000000000023 /* DashboardModels.swift in Sources */,
+				A10000010000000000000024 /* DashboardViewModel.swift in Sources */,
+				A10000010000000000000025 /* DashboardView.swift in Sources */,
+				A10000010000000000000026 /* SummaryCardsView.swift in Sources */,
+				A10000010000000000000027 /* PlayCountChartView.swift in Sources */,
+				A10000010000000000000028 /* TopStationsView.swift in Sources */,
+				A10000010000000000000029 /* LoadingView.swift in Sources */,
+				A10000010000000000000030 /* ErrorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

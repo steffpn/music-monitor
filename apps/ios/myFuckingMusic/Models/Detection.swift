@@ -27,4 +27,12 @@ struct AirplayEvent: Codable, Identifiable, Sendable {
     let playCount: Int
     let snippetUrl: String?
     let createdAt: Date
+
+    /// Nested station info included by the airplay-events API.
+    let station: StationInfo?
+
+    /// Lightweight station name included in airplay event responses.
+    struct StationInfo: Codable, Sendable {
+        let name: String
+    }
 }
