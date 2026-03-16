@@ -24,6 +24,12 @@ const v1Routes: FastifyPluginAsync = async (fastify) => {
   fastify.register(import("./exports/index.js"), {
     prefix: "/exports",
   });
+  fastify.register(import("./notifications/index.js"), {
+    prefix: "/notifications",
+  });
+  fastify.register(import("./competitors/index.js"), {
+    prefix: "/competitors",
+  });
 };
 
 export default v1Routes;

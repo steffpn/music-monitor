@@ -24,6 +24,7 @@ model Station {
   airplayEvents    AirplayEvent[]
   snippets         AudioSnippet[]
   noMatchCallbacks NoMatchCallback[]
+  watchedBy        WatchedStation[]
 
   @@map("stations")
 }
@@ -103,6 +104,7 @@ model User {
   scopes                UserScope[]
   refreshTokens         RefreshToken[]
   deviceTokens          DeviceToken[]
+  watchedStations       WatchedStation[]
 
   @@map("users")
 }
@@ -182,4 +184,18 @@ model UserScope {
   @@unique([userId, entityType, entityId])
   @@index([userId])
   @@map("user_scopes")
+}
+
+model WatchedStation {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  stationId Int      @map("station_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  station Station @relation(fields: [stationId], references: [id])
+
+  @@unique([userId, stationId])
+  @@index([userId])
+  @@map("watched_stations")
 }
