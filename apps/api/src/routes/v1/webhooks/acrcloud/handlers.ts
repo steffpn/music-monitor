@@ -15,11 +15,13 @@ export async function handleAcrCloudCallback(
   reply: FastifyReply,
   detectionQueue: Queue,
 ): Promise<void> {
-  // Auth: check shared secret header
-  const secret = request.headers["x-acr-secret"] as string | undefined;
-  if (secret !== process.env.ACRCLOUD_WEBHOOK_SECRET) {
-    // Silent drop -- return 200 to prevent endpoint confirmation
-    return reply.status(200).send({ status: "ok" });
+  // Auth: check shared secret header (only if configured)
+  const expectedSecret = process.env.ACRCLOUD_WEBHOOK_SECRET;
+  if (expectedSecret) {
+    const secret = request.headers["x-acr-secret"] as string | undefined;
+    if (secret !== expectedSecret) {
+      return reply.status(200).send({ status: "ok" });
+    }
   }
 
   // Enqueue raw callback for async processing by detection worker
