@@ -1,6 +1,3 @@
--- CreateExtension
-CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;
-
 -- CreateTable
 CREATE TABLE "stations" (
     "id" SERIAL NOT NULL,
