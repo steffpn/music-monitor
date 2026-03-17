@@ -16,14 +16,11 @@ const acrcloudWebhookRoutes: FastifyPluginAsync = async (fastify) => {
   });
 
   // POST / - Receive ACRCloud broadcast monitoring callback
+  // No strict schema validation — ACRCloud payloads vary (test vs real)
+  // and validation errors cause 502 before the handler can respond.
   fastify.post(
     "/",
-    {
-      schema: {
-        body: AcrCloudCallbackSchema,
-      },
-    },
-    async (request, reply) => handleAcrCloudCallback(request, reply, detectionQueue),
+    async (request, reply) => handleAcrCloudCallback(request as any, reply, detectionQueue),
   );
 };
 
