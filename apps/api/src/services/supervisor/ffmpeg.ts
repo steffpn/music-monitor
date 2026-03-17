@@ -77,11 +77,14 @@ export async function spawnFFmpeg(
     logger.error({ stationId, err: err.message }, "FFmpeg spawn error");
   });
 
-  // Log stderr lines at debug level. Do NOT accumulate in memory.
+  // Log stderr lines - log errors at info level for visibility
   proc.stderr?.on("data", (data: Buffer) => {
     const line = data.toString().trim();
     if (line) {
-      logger.debug({ stationId, ffmpeg: line }, "ffmpeg stderr");
+      // Show important FFmpeg messages (errors, stream info) at info level
+      if (line.includes("Error") || line.includes("error") || line.includes("Opening") || line.includes("Output") || line.includes("Stream mapping")) {
+        logger.info({ stationId }, `[ffmpeg] ${line}`);
+      }
     }
   });
 
