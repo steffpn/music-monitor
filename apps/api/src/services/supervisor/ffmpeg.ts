@@ -77,7 +77,7 @@ export async function spawnFFmpeg(
     logger.error({ stationId, err: err.message }, "FFmpeg spawn error");
   });
 
-  logger.info({ stationId, pid: proc.pid, streamUrl }, "[ffmpeg] spawned");
+  logger.info({ stationId, pid: proc.pid, killed: proc.killed, streamUrl }, "[ffmpeg] spawned");
 
   // Log ALL stderr for debugging
   let stderrBuffer = "";

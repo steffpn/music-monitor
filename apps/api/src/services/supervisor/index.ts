@@ -66,15 +66,20 @@ export async function startSupervisor(): Promise<{
   });
 
   logger.info(
-    { count: stations.length },
+    { count: stations.length, stations: stations.map(s => ({ id: s.id, name: s.name, status: s.status, url: s.streamUrl })) },
     "Loading active stations for startup",
   );
 
   for (let i = 0; i < stations.length; i += STARTUP_BATCH_SIZE) {
     const batch = stations.slice(i, i + STARTUP_BATCH_SIZE);
-    await Promise.all(
-      batch.map((s) => streamManager.startStream(s.id, s.streamUrl)),
-    );
+    for (const s of batch) {
+      try {
+        logger.info({ stationId: s.id, name: s.name, url: s.streamUrl }, "Starting stream for station");
+        await streamManager.startStream(s.id, s.streamUrl);
+      } catch (err) {
+        logger.error({ stationId: s.id, err }, "Failed to start stream");
+      }
+    }
 
     if (i + STARTUP_BATCH_SIZE < stations.length) {
       logger.info(
