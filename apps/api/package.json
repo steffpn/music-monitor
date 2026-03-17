@@ -6,6 +6,7 @@
   "scripts": {
     "build": "prisma generate && echo 'Build complete (tsx runtime, no tsc needed)'",
     "dev": "tsx watch src/index.ts",
+    "start": "prisma migrate deploy && node --import tsx src/index.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "generate": "prisma generate",
