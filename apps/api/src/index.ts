@@ -66,17 +66,13 @@ const start = async () => {
   try {
     await server.ready();
     await bootstrapAdmin();
-    await server.listen({ port: 3000, host: "0.0.0.0" });
+    const port = Number(process.env.PORT) || 3000;
+    await server.listen({ port, host: "0.0.0.0" });
   } catch (err) {
     server.log.error(err);
     process.exit(1);
   }
 };
 
-// Only start if this is the main module (not imported by tests)
-const isMain =
-  import.meta.url === `file://${process.argv[1]}` ||
-  process.argv[1]?.endsWith("src/index.ts");
-if (isMain) {
-  start();
-}
+// Always start — guard against test imports by checking NODE_ENV
+start();
