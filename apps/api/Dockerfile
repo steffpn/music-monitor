@@ -23,11 +23,11 @@ RUN pnpm install --frozen-lockfile
 COPY packages/ packages/
 COPY apps/api/ apps/api/
 
+# Build shared package only (API runs via tsx, no tsc needed)
+RUN cd packages/shared && pnpm build
+
 # Generate Prisma client
 RUN cd apps/api && pnpm prisma generate
-
-# Build shared package and API
-RUN pnpm build
 
 # Create data directory for stream segments
 RUN mkdir -p apps/api/data/streams
