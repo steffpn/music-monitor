@@ -77,15 +77,27 @@ export async function spawnFFmpeg(
     logger.error({ stationId, err: err.message }, "FFmpeg spawn error");
   });
 
-  // Log stderr lines - log errors at info level for visibility
+  logger.info({ stationId, pid: proc.pid, streamUrl }, "[ffmpeg] spawned");
+
+  // Log ALL stderr for debugging
+  let stderrBuffer = "";
   proc.stderr?.on("data", (data: Buffer) => {
-    const line = data.toString().trim();
-    if (line) {
-      // Show important FFmpeg messages (errors, stream info) at info level
-      if (line.includes("Error") || line.includes("error") || line.includes("Opening") || line.includes("Output") || line.includes("Stream mapping")) {
-        logger.info({ stationId }, `[ffmpeg] ${line}`);
-      }
+    stderrBuffer += data.toString();
+    // Log every 2KB of output
+    if (stderrBuffer.length > 2000) {
+      const lines = stderrBuffer.split("\n").filter(l => l.trim());
+      const lastLines = lines.slice(-5).join(" | ");
+      logger.info({ stationId }, `[ffmpeg] ${lastLines}`);
+      stderrBuffer = "";
     }
+  });
+
+  // Log when process exits
+  proc.on("exit", (code, signal) => {
+    if (stderrBuffer.trim()) {
+      logger.info({ stationId }, `[ffmpeg-final] ${stderrBuffer.trim().split("\n").slice(-3).join(" | ")}`);
+    }
+    logger.info({ stationId, code, signal }, "[ffmpeg] process exit");
   });
 
   return proc;
