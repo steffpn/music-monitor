@@ -33,6 +33,18 @@ export async function handleAcrCloudCallback(
 
   request.log.info(`[acrcloud] stream=${streamId} result=${songInfo}`);
 
+  // Debug: log external_metadata and played_duration to understand what ACRCloud sends
+  if (hasMusic) {
+    const music = body.data.metadata.music[0];
+    const playedDuration = body.data.metadata.played_duration;
+    request.log.info({
+      played_duration: playedDuration,
+      external_metadata: music.external_metadata,
+      play_offset_ms: music.play_offset_ms,
+      acrid: music.acrid,
+    }, "[acrcloud] metadata details");
+  }
+
   // Enqueue raw callback for async processing by detection worker
   await detectionQueue.add("process-callback", body, {
     removeOnComplete: 1000,
