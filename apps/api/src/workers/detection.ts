@@ -124,7 +124,14 @@ export async function processCallback(
   const timestampUtc = data.metadata!.timestamp_utc;
   const detectedAt = new Date(timestampUtc);
 
+  const MIN_CONFIDENCE = 70; // ACRCloud score threshold (0-100)
+
   for (const music of data.metadata!.music!) {
+    if (music.score < MIN_CONFIDENCE) {
+      logger.debug({ score: music.score, title: music.title }, "Low confidence, skipping");
+      continue;
+    }
+
     const artistName = music.artists[0]?.name ?? "Unknown";
     const isrc = normalizeIsrc(music.external_ids?.isrc);
     const confidence = music.score / 100;
