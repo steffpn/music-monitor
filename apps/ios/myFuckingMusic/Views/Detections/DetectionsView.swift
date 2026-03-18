@@ -43,7 +43,9 @@ struct DetectionsView: View {
             }
             .background(Color.rbBackground)
             .navigationTitle("Detections")
+            .navigationBarTitleDisplayMode(.large)
             .toolbarColorScheme(.dark, for: .navigationBar)
+            .toolbarBackground(Color.rbBackground, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     HStack(spacing: 12) {
