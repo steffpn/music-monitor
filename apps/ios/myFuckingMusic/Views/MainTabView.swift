@@ -58,6 +58,9 @@ struct MainTabView: View {
         }
         .tint(Color.rbAccent)
         .preferredColorScheme(.dark)
+        .safeAreaInset(edge: .bottom) {
+            NowPlayingBar()
+        }
     }
 }
 

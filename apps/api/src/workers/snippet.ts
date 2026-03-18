@@ -65,7 +65,7 @@ async function extractSnippet(
         "-i",
         concatInput,
         "-t",
-        "25",
+        "30",
         "-vn",
         "-c:a",
         "aac",

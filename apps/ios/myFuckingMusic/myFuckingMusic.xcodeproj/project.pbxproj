@@ -69,6 +69,7 @@
 		A10000010000000000000060 /* ArtistListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000060 /* ArtistListView.swift */; };
 		A10000010000000000000061 /* ArtistDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000061 /* ArtistDetailView.swift */; };
 		A10000010000000000000062 /* SongThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000062 /* SongThumbnail.swift */; };
+		A10000010000000000000063 /* NowPlayingBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000063 /* NowPlayingBar.swift */; };
 		DFF78BE52F69FE540048D646 /* RadioBugModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF78BE22F69FE540048D646 /* RadioBugModifiers.swift */; };
 		DFF78BE62F69FE540048D646 /* RadioBugTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF78BE32F69FE540048D646 /* RadioBugTheme.swift */; };
 /* End PBXBuildFile section */
@@ -136,6 +137,7 @@
 		A20000010000000000000060 /* ArtistListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistListView.swift; sourceTree = "<group>"; };
 		A20000010000000000000061 /* ArtistDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetailView.swift; sourceTree = "<group>"; };
 		A20000010000000000000062 /* SongThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongThumbnail.swift; sourceTree = "<group>"; };
+		A20000010000000000000063 /* NowPlayingBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingBar.swift; sourceTree = "<group>"; };
 		A30000010000000000000001 /* myFuckingMusic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myFuckingMusic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFF78BE22F69FE540048D646 /* RadioBugModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioBugModifiers.swift; sourceTree = "<group>"; };
 		DFF78BE32F69FE540048D646 /* RadioBugTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioBugTheme.swift; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 				A20000010000000000000029 /* LoadingView.swift */,
 				A20000010000000000000030 /* ErrorView.swift */,
 				A20000010000000000000062 /* SongThumbnail.swift */,
+				A20000010000000000000063 /* NowPlayingBar.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 				A10000010000000000000029 /* LoadingView.swift in Sources */,
 				A10000010000000000000030 /* ErrorView.swift in Sources */,
 				A10000010000000000000062 /* SongThumbnail.swift in Sources */,
+				A10000010000000000000063 /* NowPlayingBar.swift in Sources */,
 				A10000010000000000000031 /* DetectionsView.swift in Sources */,
 				A10000010000000000000032 /* DetectionRowView.swift in Sources */,
 				A10000010000000000000033 /* FilterChipsView.swift in Sources */,
