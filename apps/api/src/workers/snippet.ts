@@ -144,6 +144,7 @@ export async function processSnippetJob(
 
   try {
     // 3. Extract via FFmpeg
+    logger.info({ airplayEventId, segmentCount: segments.length, seekOffsetSeconds: Math.round(seekOffsetSeconds * 10) / 10 }, "Extracting snippet");
     await extractSnippet(segments, seekOffsetSeconds, tempPath);
 
     // 4. Read and upload to R2
@@ -151,12 +152,8 @@ export async function processSnippetJob(
     const fileSizeKB = Math.round(fileBuffer.length / 1024);
     const r2Key = `snippets/${stationId}/${formatDate(detectedAt)}/${airplayEventId}.aac`;
 
-    // Skip upload if file is too small (less than 10KB = likely corrupt/empty)
-    if (fileBuffer.length < 10240) {
-      logger.warn(
-        { airplayEventId, stationId, sizeKB: fileSizeKB },
-        "Snippet too small, skipping upload",
-      );
+    if (fileBuffer.length === 0) {
+      logger.error({ airplayEventId, stationId }, "Snippet file is empty after extraction");
       return;
     }
 
