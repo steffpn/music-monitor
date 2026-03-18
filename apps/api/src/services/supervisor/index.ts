@@ -42,6 +42,24 @@ export async function startSupervisor(): Promise<{
 }> {
   logger.info("Starting supervisor service");
 
+  // Check if ffmpeg is available
+  const { execSync } = await import("node:child_process");
+  try {
+    const version = execSync("ffmpeg -version 2>&1 | head -1").toString().trim();
+    logger.info({ version }, "FFmpeg found");
+  } catch {
+    logger.error("FFmpeg NOT found on PATH - snippets will not work");
+  }
+
+  // Check data directory
+  const fsCheck = await import("node:fs/promises");
+  try {
+    await fsCheck.mkdir(DATA_DIR, { recursive: true });
+    logger.info({ dataDir: DATA_DIR }, "Data directory ready");
+  } catch (err) {
+    logger.error({ err, dataDir: DATA_DIR }, "Cannot create data directory");
+  }
+
   // --- Orphan cleanup warning ---
   try {
     const dirs = await fs.readdir(DATA_DIR, { withFileTypes: true });
