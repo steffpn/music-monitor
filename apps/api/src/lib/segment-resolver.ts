@@ -1,10 +1,12 @@
 /**
- * Segment resolver -- maps a detection timestamp to the ring buffer segment
- * files that contain the relevant audio window.
+ * Segment resolver -- maps a detection timestamp to ring buffer segments.
  *
- * Strategy: include ALL available segments sorted by time, and calculate
- * the seek offset to start 25s before the detection timestamp.
- * FFmpeg will extract 30s from that point.
+ * Each segment is ~10s. With -reset_timestamps 1, each segment's internal
+ * timestamps start from 0. When concatenated via concat:, the timeline
+ * is sequential: seg1[0-10s] + seg2[10-20s] + seg3[20-30s] etc.
+ *
+ * We select only the segments that cover our 30s window and calculate
+ * a small seek offset within those selected segments.
  */
 
 import fs from "node:fs/promises";
@@ -19,12 +21,6 @@ interface SegmentInfo {
   mtime: number;
 }
 
-/**
- * Resolve segments for a 30-second snippet (25s before + 5s after detection).
- *
- * Uses ALL available segments and calculates seek offset based on
- * the time difference between the oldest segment and the target window start.
- */
 export async function resolveSegments(
   stationId: number,
   detectedAt: Date,
@@ -48,49 +44,50 @@ export async function resolveSegments(
         segmentInfos.push({ path: filePath, mtime: stat.mtimeMs });
       }
     } catch {
-      // File may have been rotated, skip
+      continue;
     }
   }
 
   if (segmentInfos.length < 2) return null;
 
-  // Sort by mtime ascending (oldest first)
   segmentInfos.sort((a, b) => a.mtime - b.mtime);
 
   const targetMs = detectedAt.getTime();
-  const windowStart = targetMs - 25000; // 25s before detection
+  const windowStart = targetMs - 25000; // 25s before
+  const windowEnd = targetMs + 5000;    // 5s after
 
-  // Check if we have segments old enough to cover the window
-  const oldestSegEnd = segmentInfos[0].mtime;
-  const oldestSegStart = oldestSegEnd - 10000;
-  const newestSegEnd = segmentInfos[segmentInfos.length - 1].mtime;
+  // Find segments overlapping with [windowStart, windowEnd]
+  // Each segment covers approximately [mtime - 10000, mtime]
+  const overlapping = segmentInfos.filter((seg) => {
+    const segStart = seg.mtime - 10000;
+    const segEnd = seg.mtime;
+    return segEnd >= windowStart && segStart <= windowEnd;
+  });
 
-  if (windowStart < oldestSegStart) {
-    logger.warn({ stationId, windowStart, oldestSegStart }, "Segments don't go back far enough");
-    // Still try - use whatever we have from the beginning
-  }
-
-  if (targetMs > newestSegEnd + 5000) {
-    logger.warn({ stationId }, "Detection too recent, segments haven't been written yet");
+  if (overlapping.length === 0) {
+    logger.warn({ stationId, segmentCount: segmentInfos.length }, "No overlapping segments found");
     return null;
   }
 
-  // Use all segments - FFmpeg concat will handle the full timeline
-  // Calculate seek: how far into the concatenated stream to start
-  // Total duration of all segments ≈ segmentCount * 10s
-  // The concatenated stream starts at oldestSegStart
-  const seekFromStart = Math.max(0, (windowStart - oldestSegStart) / 1000);
+  // Add 1 extra segment before for safety (if available)
+  const firstOverlapIdx = segmentInfos.indexOf(overlapping[0]);
+  if (firstOverlapIdx > 0) {
+    overlapping.unshift(segmentInfos[firstOverlapIdx - 1]);
+  }
+
+  // Calculate seek: how far into the FIRST selected segment to start
+  // The first segment covers [firstSeg.mtime - 10000, firstSeg.mtime]
+  const firstSegStart = overlapping[0].mtime - 10000;
+  const seekOffsetSeconds = Math.max(0, (windowStart - firstSegStart) / 1000);
 
   logger.info({
     stationId,
-    segmentCount: segmentInfos.length,
-    seekOffsetSeconds: Math.round(seekFromStart * 10) / 10,
-    oldestAge: Math.round((targetMs - oldestSegStart) / 1000),
-    newestAge: Math.round((targetMs - newestSegEnd) / 1000),
+    segmentCount: overlapping.length,
+    seekOffsetSeconds: Math.round(seekOffsetSeconds * 10) / 10,
   }, "Resolved segments for snippet");
 
   return {
-    segments: segmentInfos.map((s) => s.path),
-    seekOffsetSeconds: seekFromStart,
+    segments: overlapping.map((s) => s.path),
+    seekOffsetSeconds,
   };
 }
