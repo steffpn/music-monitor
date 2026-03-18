@@ -29,26 +29,7 @@ export async function getSnippetUrl(
     return reply.status(404).send({ error: "Airplay event not found" });
   }
 
-  // Scope-based data filtering per locked decision:
-  // "Route handlers filter Prisma queries by user's scoped entity IDs"
-  if (currentUser.role !== "ADMIN") {
-    const stationScopes = currentUser.scopes
-      .filter((s) => s.entityType === "STATION")
-      .map((s) => s.entityId);
-
-    if (currentUser.role === "STATION") {
-      // STATION users can only access events from their scoped stations
-      if (!stationScopes.includes(event.stationId)) {
-        return reply.status(404).send({ error: "Airplay event not found" });
-      }
-    } else {
-      // ARTIST/LABEL: allow access if they have any scope entry
-      // (refined when artist/label entity models are added in later phases)
-      if (currentUser.scopes.length === 0) {
-        return reply.status(404).send({ error: "Airplay event not found" });
-      }
-    }
-  }
+  // All authenticated users can access snippets
 
   if (!event.snippetUrl) {
     request.log.info({ eventId: id, snippetUrl: event.snippetUrl }, "Snippet 404 - no snippetUrl on event");
