@@ -4,6 +4,11 @@ struct SongDetailView: View {
     let event: AirplayEvent
     @State private var viewModel = SongDetailViewModel()
     @State private var appearAnimation = false
+    @Environment(AudioPlayerManager.self) private var audioPlayer
+
+    private var isPlaying: Bool {
+        audioPlayer.currentlyPlayingId == event.id && audioPlayer.isPlaying
+    }
 
     var body: some View {
         ZStack {
@@ -19,6 +24,12 @@ struct SongDetailView: View {
                     // Album artwork
                     artworkSection
                         .padding(.bottom, 28)
+
+                    // Play snippet button
+                    if event.snippetUrl != nil {
+                        snippetPlayButton
+                            .padding(.bottom, 20)
+                    }
 
                     // Song info
                     songInfoSection
@@ -300,6 +311,35 @@ struct SongDetailView: View {
             RoundedRectangle(cornerRadius: 12, style: .continuous)
                 .fill(Color.rbSurface.opacity(0.5))
         )
+    }
+
+    // MARK: - Snippet Play Button
+
+    private var snippetPlayButton: some View {
+        Button {
+            Task { await audioPlayer.play(eventId: event.id) }
+        } label: {
+            HStack(spacing: 12) {
+                if audioPlayer.currentlyPlayingId == event.id && audioPlayer.isLoadingSnippet {
+                    ProgressView()
+                        .tint(.white)
+                } else {
+                    Image(systemName: isPlaying ? "pause.fill" : "play.fill")
+                        .font(.system(size: 16, weight: .bold))
+                }
+
+                Text(isPlaying ? "Playing Broadcast" : "Play Broadcast Proof")
+                    .font(.subheadline.weight(.semibold))
+            }
+            .foregroundStyle(.black)
+            .padding(.horizontal, 32)
+            .padding(.vertical, 14)
+            .background(LinearGradient.rbAccentGradient)
+            .clipShape(Capsule())
+            .shadow(color: Color.rbAccent.opacity(0.4), radius: 12, x: 0, y: 6)
+        }
+        .opacity(appearAnimation ? 1.0 : 0.0)
+        .scaleEffect(appearAnimation ? 1.0 : 0.9)
     }
 
     // MARK: - Helpers

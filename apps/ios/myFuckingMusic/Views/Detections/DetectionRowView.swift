@@ -1,59 +1,85 @@
 import SwiftUI
 
 /// Compact row displaying a single airplay detection.
-/// Shows album artwork thumbnail, song title, artist, station name, and timestamp.
-/// Tapping navigates to SongDetailView.
+/// Shows album artwork thumbnail, song title, artist, station name, play button, and timestamp.
+/// Tapping navigates to SongDetailView. Play button plays snippet inline.
 struct DetectionRowView: View {
     let event: AirplayEvent
+    @Environment(AudioPlayerManager.self) private var audioPlayer
     @State private var artworkImage: UIImage?
 
+    private var isActiveRow: Bool {
+        audioPlayer.currentlyPlayingId == event.id
+    }
+
     var body: some View {
-        NavigationLink {
-            SongDetailView(event: event)
-        } label: {
-            HStack(spacing: 12) {
-                // Album artwork thumbnail
-                artworkThumbnail
+        HStack(spacing: 12) {
+            // Tappable area for navigation
+            NavigationLink {
+                SongDetailView(event: event)
+            } label: {
+                HStack(spacing: 12) {
+                    artworkThumbnail
 
-                // Song info
-                VStack(alignment: .leading, spacing: 3) {
-                    Text(event.songTitle)
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(Color.rbTextPrimary)
-                        .lineLimit(1)
-
-                    Text(event.artistName)
-                        .font(.caption)
-                        .foregroundStyle(Color.rbTextSecondary)
-                        .lineLimit(1)
-
-                    if let stationName = event.station?.name {
-                        Text(stationName)
-                            .font(.caption2)
-                            .foregroundStyle(Color.rbTextTertiary)
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text(event.songTitle)
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(Color.rbTextPrimary)
                             .lineLimit(1)
+
+                        Text(event.artistName)
+                            .font(.caption)
+                            .foregroundStyle(Color.rbTextSecondary)
+                            .lineLimit(1)
+
+                        if let stationName = event.station?.name {
+                            Text(stationName)
+                                .font(.caption2)
+                                .foregroundStyle(Color.rbTextTertiary)
+                                .lineLimit(1)
+                        }
                     }
+
+                    Spacer()
+
+                    Text(DateFormatters.shortDateTime(event.startedAt))
+                        .font(.caption2)
+                        .foregroundStyle(Color.rbTextTertiary)
                 }
-
-                Spacer()
-
-                // Timestamp
-                Text(DateFormatters.shortDateTime(event.startedAt))
-                    .font(.caption2)
-                    .foregroundStyle(Color.rbTextTertiary)
-
-                // Chevron
-                Image(systemName: "chevron.right")
-                    .font(.caption2)
-                    .foregroundStyle(Color.rbTextTertiary)
             }
-            .padding(.horizontal)
-            .padding(.vertical, 10)
-            .contentShape(Rectangle())
+            .buttonStyle(.plain)
+
+            // Play snippet button (outside NavigationLink so it works)
+            snippetButton
         }
-        .buttonStyle(DetectionRowButtonStyle())
+        .padding(.horizontal)
+        .padding(.vertical, 10)
+        .background(isActiveRow ? Color.rbSurfaceHighlight : Color.clear)
+        .contentShape(Rectangle())
         .task {
             await loadArtwork()
+        }
+    }
+
+    // MARK: - Snippet Play Button
+
+    @ViewBuilder
+    private var snippetButton: some View {
+        if event.snippetUrl != nil {
+            Button {
+                Task { await audioPlayer.play(eventId: event.id) }
+            } label: {
+                if isActiveRow && audioPlayer.isLoadingSnippet {
+                    ProgressView()
+                        .tint(Color.rbAccent)
+                        .frame(width: 28, height: 28)
+                } else {
+                    Image(systemName: isActiveRow && audioPlayer.isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                        .font(.system(size: 28))
+                        .foregroundStyle(Color.rbAccent)
+                }
+            }
+            .buttonStyle(.plain)
         }
     }
 
@@ -100,13 +126,11 @@ struct DetectionRowView: View {
                     }
                 }
             }
-        } catch {
-            // Silent fail - placeholder stays
-        }
+        } catch {}
     }
 }
 
-// MARK: - Deezer Search Models (lightweight, just for thumbnail)
+// MARK: - Deezer Search Models
 
 private struct DeezerSearchResult: Codable {
     let data: [DeezerSearchTrack]?
@@ -120,7 +144,7 @@ private struct DeezerSearchAlbum: Codable {
     let cover_medium: String?
 }
 
-// MARK: - Button Style with press feedback
+// MARK: - Button Style
 
 struct DetectionRowButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {

@@ -51,14 +51,20 @@ export async function getSnippetUrl(
   }
 
   if (!event.snippetUrl) {
+    request.log.info({ eventId: id, snippetUrl: event.snippetUrl }, "Snippet 404 - no snippetUrl on event");
     return reply
       .status(404)
       .send({ error: "No snippet available for this event" });
   }
 
-  const presignedUrl = await getPresignedUrl(event.snippetUrl, 86400);
-
-  return reply.send({ url: presignedUrl, expiresIn: 86400 });
+  try {
+    request.log.info({ eventId: id, snippetUrl: event.snippetUrl }, "Generating presigned URL");
+    const presignedUrl = await getPresignedUrl(event.snippetUrl, 86400);
+    return reply.send({ url: presignedUrl, expiresIn: 86400 });
+  } catch (err) {
+    request.log.error({ eventId: id, err }, "Failed to generate presigned URL");
+    return reply.status(500).send({ error: "Failed to generate snippet URL" });
+  }
 }
 
 /**

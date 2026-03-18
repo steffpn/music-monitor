@@ -63,6 +63,7 @@ final class AudioPlayerManager {
         error = nil
 
         do {
+            print("[AudioPlayer] Fetching snippet for eventId=\(eventId), snippetUrl check passed")
             // Fetch fresh presigned URL from backend
             let response: SnippetUrlResponse = try await APIClient.shared.request(
                 .snippetUrl(eventId: eventId)
@@ -127,6 +128,7 @@ final class AudioPlayerManager {
         } catch {
             isLoadingSnippet = false
             self.error = error.localizedDescription
+            print("[AudioPlayer] ERROR playing eventId=\(eventId): \(error)")
             stop()
         }
     }
