@@ -155,19 +155,14 @@ struct DetectionsView: View {
 
     /// Colored pill in the toolbar indicating SSE connection state.
     private var connectionIndicator: some View {
-        HStack(spacing: 6) {
+        HStack(spacing: 4) {
             Circle()
                 .fill(connectionColor)
-                .frame(width: 8, height: 8)
-                .shadow(color: connectionColor.opacity(0.6), radius: 3, x: 0, y: 0)
+                .frame(width: 6, height: 6)
             Text(connectionLabel)
                 .font(.caption2)
-                .fontWeight(.medium)
                 .foregroundStyle(Color.rbTextSecondary)
         }
-        .padding(.horizontal, 10)
-        .padding(.vertical, 4)
-        .background(Color.rbSurface, in: Capsule())
     }
 
     private var connectionColor: Color {

@@ -56,8 +56,8 @@ export async function resolveSegments(
   segmentInfos.sort((a, b) => a.mtime - b.mtime);
 
   const targetMs = detectedAt.getTime();
-  const windowStart = targetMs - 2500; // 2.5s before
-  const windowEnd = targetMs + 2500; // 2.5s after
+  const windowStart = targetMs - 20000; // 20s before detection
+  const windowEnd = targetMs + 5000; // 5s after detection
 
   // Each segment covers approximately [mtime - 10000, mtime]
   // (mtime is when FFmpeg finished writing the segment)

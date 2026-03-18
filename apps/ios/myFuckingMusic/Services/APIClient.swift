@@ -49,10 +49,16 @@ actor APIClient {
     func request<T: Decodable & Sendable>(_ endpoint: APIEndpoint) async throws -> T {
         let urlRequest = try buildRequest(for: endpoint, includeAuth: endpoint.requiresAuth)
 
+        print("[API] \(endpoint.method.rawValue) \(urlRequest.url?.absoluteString ?? "?")")
+
         let (data, response) = try await session.data(for: urlRequest)
 
         guard let httpResponse = response as? HTTPURLResponse else {
             throw APIError.invalidResponse
+        }
+
+        if httpResponse.statusCode >= 400 {
+            print("[API] \(httpResponse.statusCode) \(String(data: data, encoding: .utf8) ?? "")")
         }
 
         // On 401: attempt token refresh and retry once
