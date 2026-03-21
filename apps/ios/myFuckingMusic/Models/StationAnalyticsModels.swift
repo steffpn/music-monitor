@@ -7,6 +7,7 @@ struct StationOverviewResponse: Codable, Sendable {
     let totalPlays: Int
     let uniqueSongs: Int
     let uniqueArtists: Int
+    let stationNames: [String]?
 }
 
 // MARK: - Top Songs

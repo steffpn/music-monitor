@@ -43,9 +43,18 @@ struct MostPlayedSongInfo: Codable, Sendable {
 
 // MARK: - Song Analytics
 
+/// Partial song info returned by analytics endpoint.
+struct AnalyticsSongInfo: Codable, Sendable {
+    let id: Int
+    let songTitle: String
+    let artistName: String
+    let isrc: String
+    let activatedAt: Date
+}
+
 /// Response from GET /artist/songs/:id/analytics
 struct SongAnalyticsResponse: Codable, Sendable {
-    let song: MonitoredSong
+    let song: AnalyticsSongInfo
     let dailyPlays: [DayPlayCount]
     let totalPlays: Int
     let stationCount: Int
