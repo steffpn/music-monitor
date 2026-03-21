@@ -1,3 +1,4 @@
+// v2.1.0 — role-based views, improved detection, admin tools
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import Fastify from "fastify";
