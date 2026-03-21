@@ -308,10 +308,10 @@ struct SongAnalyticsView: View {
                 totalPlays: 142,
                 stationCount: 8,
                 trend: SongTrend(
-                    thisWeek: 47,
-                    lastWeek: 38,
                     percentChange: 23.7,
-                    direction: "up"
+                    direction: "up",
+                    thisWeek: 47,
+                    lastWeek: 38
                 )
             )
         )
