@@ -252,10 +252,6 @@
 				59BCC52224E2E859C5ADB5E2 /* StationAffinityViewModel.swift */,
 				675888B1F1ACC855A55158A0 /* StationAnalyticsViewModel.swift */,
 				026E5787C3BE546D73C9D48C /* StationDashboardViewModel.swift */,
-			
-				4AF0E04CADEAE7DC25D37B42 /* Artist */,
-				4B817BF875DA825F540A4657 /* Label */,
-				A37AC97F8E42C297C2907476 /* Station */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -308,6 +304,9 @@
 				A50000010000000000000015 /* Search */,
 				A50000010000000000000011 /* Settings */,
 				A50000010000000000000013 /* Shared */,
+				4AF0E04CADEAE7DC25D37B42 /* Artist */,
+				4B817BF875DA825F540A4657 /* Label */,
+				A37AC97F8E42C297C2907476 /* Station */,
 				A20000010000000000000018 /* MainTabView.swift */,
 			);
 			path = Views;
@@ -324,11 +323,6 @@
 				A20000010000000000000037 /* SSEClient.swift */,
 				A20000010000000000000041 /* ExportService.swift */,
 				A20000010000000000000044 /* NotificationManager.swift */,
-			
-				8A56F3C1F2EFBD413683BEE2 /* BarChartView.swift */,
-				AB4976BF2266819EC4D4DB52 /* HourlyHeatmapView.swift */,
-				DE50EC0DCFDAA39325546538 /* StationBreakdownView.swift */,
-				27FE92B3A217DE1FCA35AD3A /* TrendBadge.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -395,6 +389,10 @@
 				A20000010000000000000030 /* ErrorView.swift */,
 				A20000010000000000000062 /* SongThumbnail.swift */,
 				A20000010000000000000063 /* NowPlayingBar.swift */,
+				8A56F3C1F2EFBD413683BEE2 /* BarChartView.swift */,
+				AB4976BF2266819EC4D4DB52 /* HourlyHeatmapView.swift */,
+				DE50EC0DCFDAA39325546538 /* StationBreakdownView.swift */,
+				27FE92B3A217DE1FCA35AD3A /* TrendBadge.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
