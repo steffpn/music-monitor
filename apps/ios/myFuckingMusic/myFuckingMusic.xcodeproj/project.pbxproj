@@ -237,21 +237,6 @@
 				A20000010000000000000001 /* myFuckingMusicApp.swift */,
 				A20000010000000000000043 /* AppDelegate.swift */,
 				A20000010000000000000002 /* ContentView.swift */,
-			
-				9585692FE6A80C873E715E6D /* ArtistRoleModels.swift */,
-				B93B1E8372A13016BB6EB9A0 /* LabelRoleModels.swift */,
-				EBA0C005635A1D3AC9182C84 /* StationAnalyticsModels.swift */,
-			
-				D7905C3A4738552DD215FE27 /* ArtistComparisonViewModel.swift */,
-				01F1D79AE953C4B6E34F5D32 /* ArtistDashboardViewModel.swift */,
-				7FBDCC1D3470088B9903E1CC /* LabelArtistDetailViewModel.swift */,
-				471EA2E32F0E78ED89A6FAD4 /* LabelArtistListViewModel.swift */,
-				D69B18D5D855AFCECD5E7BFB /* LabelDashboardViewModel.swift */,
-				E3D8E6BB5485B88F3F5B484C /* MonitoredSongsViewModel.swift */,
-				11CDE71D0F3223B6C5DACD8C /* SongAnalyticsViewModel.swift */,
-				59BCC52224E2E859C5ADB5E2 /* StationAffinityViewModel.swift */,
-				675888B1F1ACC855A55158A0 /* StationAnalyticsViewModel.swift */,
-				026E5787C3BE546D73C9D48C /* StationDashboardViewModel.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -270,6 +255,9 @@
 				A20000010000000000000045 /* NotificationModels.swift */,
 				A20000010000000000000049 /* CompetitorModels.swift */,
 				A20000010000000000000058 /* ArtistSummary.swift */,
+				9585692FE6A80C873E715E6D /* ArtistRoleModels.swift */,
+				B93B1E8372A13016BB6EB9A0 /* LabelRoleModels.swift */,
+				EBA0C005635A1D3AC9182C84 /* StationAnalyticsModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -287,6 +275,16 @@
 				A20000010000000000000051 /* CompetitorDetailViewModel.swift */,
 				A20000010000000000000056 /* SongDetailViewModel.swift */,
 				A20000010000000000000059 /* ArtistsViewModel.swift */,
+				D7905C3A4738552DD215FE27 /* ArtistComparisonViewModel.swift */,
+				01F1D79AE953C4B6E34F5D32 /* ArtistDashboardViewModel.swift */,
+				7FBDCC1D3470088B9903E1CC /* LabelArtistDetailViewModel.swift */,
+				471EA2E32F0E78ED89A6FAD4 /* LabelArtistListViewModel.swift */,
+				D69B18D5D855AFCECD5E7BFB /* LabelDashboardViewModel.swift */,
+				E3D8E6BB5485B88F3F5B484C /* MonitoredSongsViewModel.swift */,
+				11CDE71D0F3223B6C5DACD8C /* SongAnalyticsViewModel.swift */,
+				59BCC52224E2E859C5ADB5E2 /* StationAffinityViewModel.swift */,
+				675888B1F1ACC855A55158A0 /* StationAnalyticsViewModel.swift */,
+				026E5787C3BE546D73C9D48C /* StationDashboardViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
