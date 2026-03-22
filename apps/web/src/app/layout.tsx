@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AuthGuard } from "@/components/auth-guard";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -11,10 +12,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="dark">
       <body>
-        <div className="min-h-screen flex">
-          <Sidebar />
-          <main className="flex-1 p-8">{children}</main>
-        </div>
+        <AuthGuard>
+          <div className="min-h-screen flex">
+            <Sidebar />
+            <main className="flex-1 p-8">{children}</main>
+          </div>
+        </AuthGuard>
       </body>
     </html>
   );

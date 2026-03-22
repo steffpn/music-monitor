@@ -19,10 +19,23 @@ const server = Fastify({ logger: true });
 
 // CORS for web app
 server.register(fastifyCors, {
-  origin: [
-    "http://localhost:3001",
-    process.env.WEB_APP_URL || "http://localhost:3001",
-  ],
+  origin: (origin, cb) => {
+    // Allow requests with no origin (mobile apps, curl, etc.)
+    if (!origin) return cb(null, true);
+    // Allow localhost, Railway domains, and custom WEB_APP_URL
+    const allowed = [
+      "http://localhost:3001",
+      process.env.WEB_APP_URL || "",
+    ];
+    if (
+      allowed.includes(origin) ||
+      origin.endsWith(".railway.app") ||
+      origin.endsWith(".up.railway.app")
+    ) {
+      return cb(null, true);
+    }
+    return cb(null, false);
+  },
   credentials: true,
 });
 
