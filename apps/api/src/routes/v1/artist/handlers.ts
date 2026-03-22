@@ -68,14 +68,30 @@ function computeTrend(
 
 // --- Helper to verify song ownership ---
 
-async function getOwnedSong(userId: number, songId: number) {
+async function getOwnedSong(userId: number, songId: number, userRole?: string) {
   const song = await prisma.monitoredSong.findUnique({
     where: { id: songId },
   });
-  if (!song || song.userId !== userId) {
-    return null;
+  if (!song) return null;
+
+  // Direct ownership (artist owns the song)
+  if (song.userId === userId) return song;
+
+  // Label ownership (song is linked via label_monitored_songs)
+  if (userRole === "LABEL" || userRole === "ADMIN") {
+    const labelLink = await prisma.labelMonitoredSong.findFirst({
+      where: {
+        monitoredSongId: songId,
+        labelArtist: { labelUserId: userId },
+      },
+    });
+    if (labelLink) return song;
   }
-  return song;
+
+  // Admin can access any song
+  if (userRole === "ADMIN") return song;
+
+  return null;
 }
 
 // --- Handlers ---
@@ -217,7 +233,7 @@ export async function getSongAnalytics(
   const userId = request.currentUser.id;
   const { id } = request.params;
 
-  const song = await getOwnedSong(userId, id);
+  const song = await getOwnedSong(userId, id, request.currentUser.role);
   if (!song) {
     return reply.status(404).send({ error: "Song not found" });
   }
@@ -265,7 +281,7 @@ export async function getStationBreakdown(
   const userId = request.currentUser.id;
   const { id } = request.params;
 
-  const song = await getOwnedSong(userId, id);
+  const song = await getOwnedSong(userId, id, request.currentUser.role);
   if (!song) {
     return reply.status(404).send({ error: "Song not found" });
   }
@@ -308,7 +324,7 @@ export async function getHourlyHeatmap(
   const userId = request.currentUser.id;
   const { id } = request.params;
 
-  const song = await getOwnedSong(userId, id);
+  const song = await getOwnedSong(userId, id, request.currentUser.role);
   if (!song) {
     return reply.status(404).send({ error: "Song not found" });
   }
@@ -354,7 +370,7 @@ export async function getPeakHours(
   const userId = request.currentUser.id;
   const { id } = request.params;
 
-  const song = await getOwnedSong(userId, id);
+  const song = await getOwnedSong(userId, id, request.currentUser.role);
   if (!song) {
     return reply.status(404).send({ error: "Song not found" });
   }
@@ -395,7 +411,7 @@ export async function getSongTrend(
   const userId = request.currentUser.id;
   const { id } = request.params;
 
-  const song = await getOwnedSong(userId, id);
+  const song = await getOwnedSong(userId, id, request.currentUser.role);
   if (!song) {
     return reply.status(404).send({ error: "Song not found" });
   }

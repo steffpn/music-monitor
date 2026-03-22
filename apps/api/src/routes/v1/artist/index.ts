@@ -21,7 +21,7 @@ import {
 const artistRoutes: FastifyPluginAsync = async (fastify) => {
   // All routes require ARTIST or ADMIN role
   fastify.addHook("preHandler", authenticate);
-  fastify.addHook("preHandler", requireRole("ARTIST", "ADMIN"));
+  fastify.addHook("preHandler", requireRole("ARTIST", "LABEL", "ADMIN"));
 
   // GET /artist/songs - List all monitored songs
   fastify.get("/songs", getArtistSongs);
