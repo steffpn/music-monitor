@@ -17,8 +17,15 @@ export async function apiFetch<T>(path: string, opts: FetchOptions = {}): Promis
   });
 
   if (!res.ok) {
+    // On 401, clear token and redirect to login
+    if (res.status === 401 && typeof window !== "undefined") {
+      localStorage.removeItem("mfm_admin_token");
+      window.location.href = "/login";
+      throw new Error("Session expired. Redirecting to login...");
+    }
+
     const body = await res.json().catch(() => ({}));
-    throw new Error(body.message || `API error ${res.status}`);
+    throw new Error(body.error || body.message || `API error ${res.status}`);
   }
 
   return res.json();
