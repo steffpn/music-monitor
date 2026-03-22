@@ -1,7 +1,5 @@
 import SwiftUI
 
-/// Registration form: name, email, password, confirm password.
-/// On success, AuthManager.isAuthenticated triggers navigation to MainTabView.
 struct RegisterView: View {
     @Environment(AuthViewModel.self) private var viewModel
     @State private var name = ""
@@ -16,117 +14,55 @@ struct RegisterView: View {
 
             ScrollView {
                 VStack(spacing: 24) {
-                    // Header
-                    VStack(spacing: 8) {
-                        Image(systemName: "person.badge.plus")
-                            .font(.system(size: 48))
-                            .foregroundStyle(Color.rbAccent)
+                    Image(systemName: "person.badge.plus")
+                        .font(.system(size: 48))
+                        .foregroundStyle(Color.rbAccent)
+                        .padding(.top, 24)
 
-                        Text("Create Account")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .foregroundStyle(Color.rbTextPrimary)
+                    Text("Create Account")
+                        .font(.title2.bold())
+                        .foregroundStyle(Color.rbTextPrimary)
 
-                        Text("Fill in your details to get started")
-                            .font(.subheadline)
-                            .foregroundStyle(Color.rbTextSecondary)
-                    }
-                    .padding(.top, 24)
-
-                    // Form fields
                     VStack(spacing: 16) {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Name")
-                                .font(.caption)
-                                .foregroundStyle(Color.rbTextSecondary)
-                            TextField("", text: $name, prompt: Text("Your name").foregroundStyle(Color.rbTextTertiary.opacity(0.6)))
-                                .padding(12)
-                                .background(Color.rbSurface)
-                                .foregroundStyle(Color.rbTextPrimary)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.rbSurfaceLight, lineWidth: 1)
-                                )
-                                .textContentType(.name)
-                                .textInputAutocapitalization(.words)
-                        }
+                        TextField("Name", text: $name)
+                            .textContentType(.name)
+                            .textInputAutocapitalization(.words)
+                            .modifier(AuthFieldStyle())
 
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Email")
-                                .font(.caption)
-                                .foregroundStyle(Color.rbTextSecondary)
-                            TextField("", text: $email, prompt: Text("email@example.com").foregroundStyle(Color.rbTextTertiary.opacity(0.6)))
-                                .padding(12)
-                                .background(Color.rbSurface)
-                                .foregroundStyle(Color.rbTextPrimary)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.rbSurfaceLight, lineWidth: 1)
-                                )
-                                .textContentType(.emailAddress)
-                                .keyboardType(.emailAddress)
-                                .textInputAutocapitalization(.never)
-                                .autocorrectionDisabled()
-                        }
+                        TextField("Email", text: $email)
+                            .keyboardType(.emailAddress)
+                            .textContentType(.emailAddress)
+                            .textInputAutocapitalization(.never)
+                            .autocorrectionDisabled()
+                            .modifier(AuthFieldStyle())
 
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Password")
-                                .font(.caption)
-                                .foregroundStyle(Color.rbTextSecondary)
-                            SecureField("", text: $password, prompt: Text("Minimum 8 characters").foregroundStyle(Color.rbTextTertiary.opacity(0.6)))
-                                .padding(12)
-                                .background(Color.rbSurface)
-                                .foregroundStyle(Color.rbTextPrimary)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.rbSurfaceLight, lineWidth: 1)
-                                )
-                                .textContentType(.newPassword)
-                        }
+                        SecureField("Password (min 8 chars)", text: $password)
+                            .textContentType(.newPassword)
+                            .modifier(AuthFieldStyle())
 
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Confirm Password")
-                                .font(.caption)
-                                .foregroundStyle(Color.rbTextSecondary)
-                            SecureField("", text: $confirmPassword, prompt: Text("Re-enter password").foregroundStyle(Color.rbTextTertiary.opacity(0.6)))
-                                .padding(12)
-                                .background(Color.rbSurface)
-                                .foregroundStyle(Color.rbTextPrimary)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.rbSurfaceLight, lineWidth: 1)
-                                )
-                                .textContentType(.newPassword)
-                        }
+                        SecureField("Confirm Password", text: $confirmPassword)
+                            .textContentType(.newPassword)
+                            .modifier(AuthFieldStyle())
                     }
                     .padding(.horizontal, 24)
 
-                    // Error message
                     if let error = viewModel.errorMessage {
                         Text(error)
                             .font(.caption)
-                            .foregroundStyle(Color.rbError)
+                            .foregroundStyle(.red)
                             .padding(.horizontal, 24)
                     }
 
-                    // Create Account button
                     Button {
                         viewModel.name = name
                         viewModel.email = email
                         viewModel.password = password
                         viewModel.confirmPassword = confirmPassword
-                        Task {
-                            await viewModel.register()
-                        }
+                        Task { await viewModel.register() }
                     } label: {
                         Group {
                             if viewModel.isSubmitting {
-                                ProgressView()
-                                    .tint(.white)
+                                ProgressView().tint(.white)
                             } else {
                                 Text("Create Account")
                             }
@@ -147,6 +83,16 @@ struct RegisterView: View {
         .navigationTitle("Register")
         .navigationBarTitleDisplayMode(.inline)
         .toolbarColorScheme(.dark, for: .navigationBar)
+    }
+}
+
+/// Lightweight text field styling — single background, no overlay/clipShape stack.
+private struct AuthFieldStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding(12)
+            .foregroundStyle(Color.rbTextPrimary)
+            .background(Color.rbSurface, in: RoundedRectangle(cornerRadius: 10))
     }
 }
 

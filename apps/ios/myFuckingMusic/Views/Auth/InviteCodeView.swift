@@ -1,7 +1,5 @@
 import SwiftUI
 
-/// Screen for entering an invite code in XXXX-XXXX-XXXX format.
-/// Validates format before allowing navigation to registration.
 struct InviteCodeView: View {
     @Environment(AuthViewModel.self) private var viewModel
     @State private var inviteCode = ""
@@ -14,56 +12,41 @@ struct InviteCodeView: View {
             VStack(spacing: 24) {
                 Spacer()
 
-                // Header
-                VStack(spacing: 8) {
-                    Image(systemName: "ticket")
-                        .font(.system(size: 48))
-                        .foregroundStyle(Color.rbAccent)
+                Image(systemName: "ticket")
+                    .font(.system(size: 48))
+                    .foregroundStyle(Color.rbAccent)
 
-                    Text("Enter Invite Code")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundStyle(Color.rbTextPrimary)
-
-                    Text("Enter the code you received to create your account")
-                        .font(.subheadline)
-                        .foregroundStyle(Color.rbTextSecondary)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 32)
-                }
-
-                // Code input
-                TextField("XXXX-XXXX-XXXX", text: $inviteCode)
-                    .padding(14)
-                    .background(Color.rbSurface)
+                Text("Enter Invite Code")
+                    .font(.title2.bold())
                     .foregroundStyle(Color.rbTextPrimary)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.rbSurfaceLight, lineWidth: 1)
-                    )
+
+                Text("Enter the code you received to create your account")
+                    .font(.subheadline)
+                    .foregroundStyle(Color.rbTextSecondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 32)
+
+                TextField("XXXX-XXXX-XXXX", text: $inviteCode)
                     .font(.title3.monospaced())
                     .multilineTextAlignment(.center)
                     .textInputAutocapitalization(.characters)
                     .autocorrectionDisabled()
+                    .padding(14)
+                    .foregroundStyle(Color.rbTextPrimary)
+                    .background(Color.rbSurface, in: RoundedRectangle(cornerRadius: 10))
                     .padding(.horizontal, 48)
                     .onChange(of: inviteCode) { _, newValue in
-                        // Format and sync to viewModel
-                        let formatted = formatInviteCode(newValue)
-                        inviteCode = formatted
-                        viewModel.inviteCode = formatted
+                        viewModel.inviteCode = newValue.uppercased()
                     }
 
-                // Error message
                 if let error = viewModel.errorMessage {
                     Text(error)
                         .font(.caption)
-                        .foregroundStyle(Color.rbError)
+                        .foregroundStyle(.red)
                 }
 
                 Spacer()
 
-                // Continue button
                 NavigationLink {
                     RegisterView()
                 } label: {
@@ -83,14 +66,7 @@ struct InviteCodeView: View {
         .navigationTitle("Invite Code")
         .navigationBarTitleDisplayMode(.inline)
         .toolbarColorScheme(.dark, for: .navigationBar)
-        .onAppear {
-            inviteCode = viewModel.inviteCode
-        }
-    }
-
-    private func formatInviteCode(_ raw: String) -> String {
-        let cleaned = raw.uppercased().filter { $0.isLetter || $0.isNumber || $0 == "-" }
-        return String(cleaned.prefix(20))
+        .onAppear { inviteCode = viewModel.inviteCode }
     }
 }
 
