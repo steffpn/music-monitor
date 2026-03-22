@@ -27,7 +27,8 @@ struct LabelArtistListView: View {
                             NavigationLink {
                                 LabelArtistDetailView(
                                     artistId: artist.id,
-                                    artistName: artist.artistName
+                                    artistName: artist.artistName,
+                                    pictureUrl: artist.pictureUrl
                                 )
                             } label: {
                                 artistRow(artist)
@@ -84,15 +85,33 @@ struct LabelArtistListView: View {
 
     private func artistRow(_ artist: LabelArtistSummary) -> some View {
         HStack(spacing: 14) {
-            // Artist avatar placeholder
-            ZStack {
-                Circle()
-                    .fill(Color.rbSurface)
-                Image(systemName: "person.fill")
-                    .font(.system(size: 18))
-                    .foregroundStyle(Color.rbTextTertiary)
+            // Artist photo
+            if let urlString = artist.pictureUrl, let url = URL(string: urlString) {
+                AsyncImage(url: url) { image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                } placeholder: {
+                    ZStack {
+                        Circle()
+                            .fill(Color.rbSurface)
+                        Image(systemName: "person.fill")
+                            .font(.system(size: 18))
+                            .foregroundStyle(Color.rbTextTertiary)
+                    }
+                }
+                .frame(width: 48, height: 48)
+                .clipShape(Circle())
+            } else {
+                ZStack {
+                    Circle()
+                        .fill(Color.rbSurface)
+                    Image(systemName: "person.fill")
+                        .font(.system(size: 18))
+                        .foregroundStyle(Color.rbTextTertiary)
+                }
+                .frame(width: 48, height: 48)
             }
-            .frame(width: 48, height: 48)
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(artist.artistName)

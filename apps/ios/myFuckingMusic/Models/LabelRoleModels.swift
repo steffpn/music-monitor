@@ -8,6 +8,7 @@ struct LabelArtistSummary: Codable, Identifiable, Sendable {
     let id: Int
     let artistName: String
     let artistUserId: Int?
+    let pictureUrl: String?
     let songCount: Int
     let totalPlays: Int
     let topSong: String?
@@ -41,6 +42,7 @@ struct LabelDashboardResponse: Codable, Sendable {
 /// Artist summary row on the label dashboard.
 struct LabelArtistDashboardItem: Codable, Identifiable, Sendable {
     let artistName: String
+    let pictureUrl: String?
     let songCount: Int
     let totalPlays: Int
     let topSong: String?

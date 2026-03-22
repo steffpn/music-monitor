@@ -5,12 +5,14 @@ import SwiftUI
 struct LabelArtistDetailView: View {
     let artistId: Int
     let artistName: String
+    let pictureUrl: String?
 
     @State private var viewModel: LabelArtistDetailViewModel
 
-    init(artistId: Int, artistName: String) {
+    init(artistId: Int, artistName: String, pictureUrl: String? = nil) {
         self.artistId = artistId
         self.artistName = artistName
+        self.pictureUrl = pictureUrl
         self._viewModel = State(initialValue: LabelArtistDetailViewModel(artistId: artistId))
     }
 
@@ -84,20 +86,44 @@ struct LabelArtistDetailView: View {
 
     private var artistHeader: some View {
         HStack(spacing: 14) {
-            ZStack {
-                Circle()
-                    .fill(
-                        LinearGradient(
-                            colors: [.rbAccent.opacity(0.3), .rbSurface],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
+            if let urlString = pictureUrl, let url = URL(string: urlString) {
+                AsyncImage(url: url) { image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                } placeholder: {
+                    ZStack {
+                        Circle()
+                            .fill(
+                                LinearGradient(
+                                    colors: [.rbAccent.opacity(0.3), .rbSurface],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                        Image(systemName: "person.fill")
+                            .font(.system(size: 24))
+                            .foregroundStyle(Color.rbAccent)
+                    }
+                }
+                .frame(width: 56, height: 56)
+                .clipShape(Circle())
+            } else {
+                ZStack {
+                    Circle()
+                        .fill(
+                            LinearGradient(
+                                colors: [.rbAccent.opacity(0.3), .rbSurface],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
                         )
-                    )
-                Image(systemName: "person.fill")
-                    .font(.system(size: 24))
-                    .foregroundStyle(Color.rbAccent)
+                    Image(systemName: "person.fill")
+                        .font(.system(size: 24))
+                        .foregroundStyle(Color.rbAccent)
+                }
+                .frame(width: 56, height: 56)
             }
-            .frame(width: 56, height: 56)
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(artistName)

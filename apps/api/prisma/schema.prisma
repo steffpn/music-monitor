@@ -260,6 +260,7 @@ model LabelArtist {
   labelUserId   Int       @map("label_user_id")
   artistUserId  Int?      @map("artist_user_id")
   artistName    String    @map("artist_name")
+  pictureUrl    String?   @map("picture_url")
   addedAt       DateTime  @default(now()) @map("added_at")
 
   labelUser     User      @relation("LabelArtists", fields: [labelUserId], references: [id], onDelete: Cascade)

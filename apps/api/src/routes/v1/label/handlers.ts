@@ -91,6 +91,7 @@ export async function getLabelArtists(
         id: la.id,
         artistName: la.artistName,
         artistUserId: la.artistUserId,
+        pictureUrl: la.pictureUrl,
         songCount,
         totalPlays,
         topSong,
@@ -119,13 +120,34 @@ export async function addLabelArtist(
   });
 
   try {
-    const labelArtist = await prisma.labelArtist.create({
+    let labelArtist = await prisma.labelArtist.create({
       data: {
         labelUserId,
         artistName,
         artistUserId: existingArtist?.id ?? null,
       },
     });
+
+    // Auto-fetch picture from Deezer
+    try {
+      const deezerRes = await fetch(
+        `https://api.deezer.com/search/artist?q=${encodeURIComponent(artistName)}&limit=1`,
+      );
+      if (deezerRes.ok) {
+        const deezerData = (await deezerRes.json()) as {
+          data?: Array<{ picture_medium?: string }>;
+        };
+        const pictureUrl = deezerData.data?.[0]?.picture_medium;
+        if (pictureUrl) {
+          labelArtist = await prisma.labelArtist.update({
+            where: { id: labelArtist.id },
+            data: { pictureUrl },
+          });
+        }
+      }
+    } catch {
+      /* best effort */
+    }
 
     return reply.status(201).send(labelArtist);
   } catch (error) {
@@ -406,6 +428,7 @@ export async function getLabelDashboard(
 
     return {
       artistName: la.artistName,
+      pictureUrl: la.pictureUrl,
       songCount: artistSongs.length,
       totalPlays: artistTotalPlays,
       topSong,

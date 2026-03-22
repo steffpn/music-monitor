@@ -130,10 +130,39 @@ struct LabelDashboardView: View {
 
     private func artistSummaryCard(_ artist: LabelArtistDashboardItem) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text(artist.artistName)
-                .font(.headline)
-                .foregroundStyle(Color.rbTextPrimary)
-                .lineLimit(1)
+            HStack(spacing: 10) {
+                if let urlString = artist.pictureUrl, let url = URL(string: urlString) {
+                    AsyncImage(url: url) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                    } placeholder: {
+                        ZStack {
+                            Circle()
+                                .fill(Color.rbSurface)
+                            Image(systemName: "person.fill")
+                                .font(.system(size: 14))
+                                .foregroundStyle(Color.rbTextTertiary)
+                        }
+                    }
+                    .frame(width: 40, height: 40)
+                    .clipShape(Circle())
+                } else {
+                    ZStack {
+                        Circle()
+                            .fill(Color.rbSurface)
+                        Image(systemName: "person.fill")
+                            .font(.system(size: 14))
+                            .foregroundStyle(Color.rbTextTertiary)
+                    }
+                    .frame(width: 40, height: 40)
+                }
+
+                Text(artist.artistName)
+                    .font(.headline)
+                    .foregroundStyle(Color.rbTextPrimary)
+                    .lineLimit(1)
+            }
 
             HStack(spacing: 16) {
                 VStack(alignment: .leading, spacing: 2) {
