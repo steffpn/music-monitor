@@ -389,19 +389,21 @@ export async function getLabelDashboard(
     })),
   );
 
-  // Get play counts per song respecting activatedAt
+  // Get play counts and station counts per song respecting activatedAt
   const songPlays = new Map<number, number>();
+  const songStations = new Map<number, number>();
   await Promise.all(
     allMonitoredSongs.map(async (ms) => {
       const rows = await prisma.$queryRaw<
-        Array<{ play_count: bigint | number }>
+        Array<{ play_count: bigint | number; station_count: bigint | number }>
       >`
-        SELECT COUNT(*)::int AS play_count
+        SELECT COUNT(*)::int AS play_count, COUNT(DISTINCT station_id)::int AS station_count
         FROM airplay_events
         WHERE isrc = ${ms.isrc}
           AND started_at >= ${ms.activatedAt}
       `;
       songPlays.set(ms.id, rows.length > 0 ? Number(rows[0].play_count) : 0);
+      songStations.set(ms.id, rows.length > 0 ? Number(rows[0].station_count) : 0);
     }),
   );
 
@@ -443,6 +445,7 @@ export async function getLabelDashboard(
       artistName: ms.labelArtistName,
       isrc: ms.isrc,
       totalPlays: songPlays.get(ms.id) || 0,
+      stationCount: songStations.get(ms.id) || 0,
       activatedAt: ms.activatedAt,
     }))
     .sort((a, b) => b.totalPlays - a.totalPlays);

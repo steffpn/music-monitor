@@ -60,7 +60,7 @@ export async function addWatchedStation(
   reply: FastifyReply,
 ): Promise<void> {
   const userId = request.currentUser.id;
-  const stationId = request.body.station_id;
+  const stationId = request.body.stationId;
 
   // Check if trying to watch own station
   const ownStationIds = request.currentUser.scopes
