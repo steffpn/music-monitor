@@ -200,7 +200,6 @@ enum APIEndpoint: Sendable {
 
     var body: Data? {
         let encoder = JSONEncoder()
-        encoder.keyEncodingStrategy = .convertToSnakeCase
 
         switch self {
         case .register(let code, let email, let password, let name):
