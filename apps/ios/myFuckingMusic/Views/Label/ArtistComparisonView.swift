@@ -7,8 +7,12 @@ struct ArtistComparisonView: View {
     @State private var viewModel = ArtistComparisonViewModel()
     @State private var artistListViewModel = LabelArtistListViewModel()
 
-    /// Color palette for artist series differentiation.
-    private let seriesColors: [Color] = [.rbAccent, .rbWarm, .purple]
+    /// Color palette for artist series differentiation — high-contrast, vibrant.
+    private let seriesColors: [Color] = [
+        .rbAccent,
+        Color(red: 1, green: 0.42, blue: 0.42),
+        Color(red: 0.3, green: 0.8, blue: 0.77)
+    ]
 
     var body: some View {
         ZStack {
@@ -175,31 +179,17 @@ struct ArtistComparisonView: View {
                     .foregroundStyle(Color.rbTextPrimary)
             }
 
-            // Legend
-            HStack(spacing: 16) {
-                ForEach(Array(comparison.artists.enumerated()), id: \.element.id) { index, artist in
-                    HStack(spacing: 6) {
-                        Circle()
-                            .fill(seriesColors[index % seriesColors.count])
-                            .frame(width: 8, height: 8)
-
-                        Text(artist.artistName)
-                            .font(.caption)
-                            .foregroundStyle(Color.rbTextSecondary)
-                            .lineLimit(1)
-                    }
-                }
-            }
-
             Chart {
                 ForEach(Array(comparison.artists.enumerated()), id: \.element.id) { index, artist in
-                    ForEach(artist.dailyPlays) { day in
+                    let recentDays = artist.dailyPlays.suffix(7)
+                    ForEach(Array(recentDays), id: \.id) { day in
                         BarMark(
-                            x: .value("Date", day.date),
+                            x: .value("Date", dayLabel(day.date)),
                             y: .value("Plays", day.count)
                         )
                         .foregroundStyle(by: .value("Artist", artist.artistName))
                         .position(by: .value("Artist", artist.artistName))
+                        .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
                     }
                 }
             }
@@ -207,13 +197,29 @@ struct ArtistComparisonView: View {
                 domain: comparison.artists.map(\.artistName),
                 range: Array(seriesColors.prefix(comparison.artists.count))
             )
-            .chartLegend(.hidden)
+            .chartLegend(position: .bottom, alignment: .center, spacing: 12) {
+                HStack(spacing: 16) {
+                    ForEach(Array(comparison.artists.enumerated()), id: \.element.id) { index, artist in
+                        HStack(spacing: 6) {
+                            RoundedRectangle(cornerRadius: 3, style: .continuous)
+                                .fill(seriesColors[index % seriesColors.count])
+                                .frame(width: 12, height: 12)
+
+                            Text(artist.artistName)
+                                .font(.caption2)
+                                .foregroundStyle(Color.rbTextSecondary)
+                                .lineLimit(1)
+                        }
+                    }
+                }
+            }
             .chartXAxis {
-                AxisMarks(values: .automatic(desiredCount: 5)) { _ in
+                AxisMarks(values: .automatic(desiredCount: 7)) { _ in
                     AxisGridLine(stroke: StrokeStyle(lineWidth: 0.5))
                         .foregroundStyle(Color.rbSurfaceLight)
-                    AxisValueLabel()
+                    AxisValueLabel(orientation: .vertical)
                         .foregroundStyle(Color.rbTextTertiary)
+                        .font(.caption2)
                 }
             }
             .chartYAxis {
@@ -222,9 +228,10 @@ struct ArtistComparisonView: View {
                         .foregroundStyle(Color.rbSurfaceLight)
                     AxisValueLabel()
                         .foregroundStyle(Color.rbTextTertiary)
+                        .font(.caption2)
                 }
             }
-            .frame(height: 240)
+            .frame(height: 260)
         }
         .padding(16)
         .background(
@@ -244,6 +251,18 @@ struct ArtistComparisonView: View {
     }
 
     // MARK: - Helpers
+
+    /// Abbreviate a date string to just the day number (e.g. "18/03" -> "18").
+    private func dayLabel(_ dateString: String) -> String {
+        if let slashIndex = dateString.firstIndex(of: "/") {
+            return String(dateString[dateString.startIndex..<slashIndex])
+        }
+        // Fallback: return last 2 characters or the original string.
+        if dateString.count > 2 {
+            return String(dateString.suffix(2))
+        }
+        return dateString
+    }
 
     private func toggleArtistSelection(_ artistId: Int) {
         if let idx = viewModel.selectedArtistIds.firstIndex(of: artistId) {
