@@ -4,23 +4,24 @@ import { useState, FormEvent, useEffect } from "react";
 import { apiFetch } from "@/lib/api";
 import { getToken } from "@/lib/auth";
 import { cn } from "@/lib/cn";
-import type { Feature, FeatureFormData, Role } from "@/lib/types";
+import type { Feature, MatrixFeature, FeatureFormData, Role } from "@/lib/types";
 
 const CATEGORIES = [
   "analytics",
   "exports",
   "curation",
   "alerts",
-  "social",
-  "distribution",
-  "monetization",
+  "reports",
+  "live",
+  "songs",
+  "label",
   "general",
 ];
 
 const ALL_ROLES: Role[] = ["ARTIST", "LABEL", "STATION"];
 
 interface FeatureFormProps {
-  feature?: Feature | null;
+  feature?: Feature | MatrixFeature | null;
   open: boolean;
   onClose: () => void;
   onSaved: () => void;
@@ -45,8 +46,8 @@ export function FeatureForm({ feature, open, onClose, onSaved }: FeatureFormProp
         key: feature.key,
         name: feature.name,
         description: feature.description || "",
-        category: feature.category,
-        roles: feature.roles,
+        category: ("category" in feature ? feature.category : "general") || "general",
+        roles: feature.roles as Role[],
       });
     } else {
       setForm({ key: "", name: "", description: "", category: "general", roles: [] });

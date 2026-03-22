@@ -8,8 +8,8 @@ export interface Feature {
   description: string | null;
   category: string;
   roles: Role[];
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface Plan {
@@ -17,12 +17,27 @@ export interface Plan {
   role: Role;
   tier: Tier;
   name: string;
-  featureIds: number[];
+  slug: string;
+}
+
+export interface MatrixFeature {
+  id: number;
+  key: string;
+  name: string;
+  description: string | null;
+  category?: string;
+  roles: string[];
+  plans: Array<{ planId: number; included: boolean }>;
+}
+
+export interface MatrixCategory {
+  category: string;
+  features: MatrixFeature[];
 }
 
 export interface PlanMatrix {
-  features: Feature[];
   plans: Plan[];
+  categories: MatrixCategory[];
 }
 
 export interface FeatureFormData {

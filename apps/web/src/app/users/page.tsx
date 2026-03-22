@@ -12,7 +12,7 @@ interface User {
   role: string;
   isActive: boolean;
   lastLogin: string | null;
-  scopes: string[];
+  scopes: Array<{ entityType: string; entityId: number }>;
   createdAt: string;
 }
 
@@ -193,12 +193,12 @@ export default function UsersPage() {
                   <td className="px-4 py-3">
                     <div className="flex flex-wrap gap-1">
                       {user.scopes?.length > 0
-                        ? user.scopes.map((scope) => (
+                        ? user.scopes.map((scope, i) => (
                             <span
-                              key={scope}
+                              key={`${scope.entityType}-${scope.entityId}-${i}`}
                               className="text-[10px] font-mono text-zinc-500 bg-zinc-800 px-1.5 py-0.5 rounded"
                             >
-                              {scope}
+                              {scope.entityType}:{scope.entityId}
                             </span>
                           ))
                         : <span className="text-xs text-zinc-600">--</span>}

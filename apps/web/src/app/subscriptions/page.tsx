@@ -40,7 +40,7 @@ export default function SubscriptionsPage() {
       return;
     }
     try {
-      const data = await apiFetch<Subscription[]>("/subscriptions", { token });
+      const data = await apiFetch<Subscription[]>("/admin/subscriptions", { token });
       setSubscriptions(data);
       setError(null);
     } catch (err) {

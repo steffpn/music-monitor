@@ -5,7 +5,7 @@ import { apiFetch } from "@/lib/api";
 import { getToken } from "@/lib/auth";
 import { cn } from "@/lib/cn";
 import { FeatureForm } from "@/components/feature-form";
-import type { Feature, Plan, PlanMatrix, Role, Tier } from "@/lib/types";
+import type { Feature, Plan, PlanMatrix, MatrixFeature, Role, Tier } from "@/lib/types";
 
 const PLAN_COLUMNS: { role: Role; tier: Tier; label: string }[] = [
   { role: "ARTIST", tier: "FREE", label: "Artist Free" },
@@ -22,23 +22,13 @@ const ROLE_COLORS: Record<Role, string> = {
   STATION: "text-emerald-400",
 };
 
-function groupByCategory(features: Feature[]): Record<string, Feature[]> {
-  const groups: Record<string, Feature[]> = {};
-  for (const f of features) {
-    const cat = f.category || "general";
-    if (!groups[cat]) groups[cat] = [];
-    groups[cat].push(f);
-  }
-  return groups;
-}
-
 export function FeatureMatrix() {
   const [data, setData] = useState<PlanMatrix | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [toggling, setToggling] = useState<string | null>(null);
   const [formOpen, setFormOpen] = useState(false);
-  const [editingFeature, setEditingFeature] = useState<Feature | null>(null);
+  const [editingFeature, setEditingFeature] = useState<MatrixFeature | Feature | null>(null);
 
   const fetchMatrix = useCallback(async () => {
     const token = getToken();
@@ -67,30 +57,32 @@ export function FeatureMatrix() {
     return data?.plans.find((p) => p.role === role && p.tier === tier);
   }
 
-  function isPlanFeature(featureId: number, role: Role, tier: Tier): boolean {
+  function isIncluded(feature: MatrixFeature, role: Role, tier: Tier): boolean {
     const plan = findPlan(role, tier);
-    return plan ? plan.featureIds.includes(featureId) : false;
+    if (!plan) return false;
+    const entry = feature.plans.find((p) => p.planId === plan.id);
+    return entry?.included ?? false;
   }
 
-  function isFeatureApplicable(feature: Feature, role: Role): boolean {
+  function isFeatureApplicable(feature: MatrixFeature, role: Role): boolean {
     return feature.roles.includes(role);
   }
 
-  async function toggleFeature(featureId: number, role: Role, tier: Tier) {
+  async function toggleFeature(feature: MatrixFeature, role: Role, tier: Tier) {
     const plan = findPlan(role, tier);
     if (!plan) return;
 
     const token = getToken();
     if (!token) return;
 
-    const toggleKey = `${role}-${tier}-${featureId}`;
+    const toggleKey = `${role}-${tier}-${feature.id}`;
     setToggling(toggleKey);
 
-    const isCurrentlyEnabled = plan.featureIds.includes(featureId);
+    const currentlyIncluded = isIncluded(feature, role, tier);
 
     try {
-      if (isCurrentlyEnabled) {
-        await apiFetch(`/admin/plans/${plan.id}/features/${featureId}`, {
+      if (currentlyIncluded) {
+        await apiFetch(`/admin/plans/${plan.id}/features/${feature.id}`, {
           method: "DELETE",
           token,
         });
@@ -98,34 +90,19 @@ export function FeatureMatrix() {
         await apiFetch(`/admin/plans/${plan.id}/features`, {
           method: "POST",
           token,
-          body: JSON.stringify({ featureId }),
+          body: JSON.stringify({ featureId: feature.id }),
         });
       }
-      // Optimistic update
-      setData((prev) => {
-        if (!prev) return prev;
-        return {
-          ...prev,
-          plans: prev.plans.map((p) => {
-            if (p.id !== plan.id) return p;
-            return {
-              ...p,
-              featureIds: isCurrentlyEnabled
-                ? p.featureIds.filter((id) => id !== featureId)
-                : [...p.featureIds, featureId],
-            };
-          }),
-        };
-      });
+      // Refresh from server
+      fetchMatrix();
     } catch {
-      // Refresh from server on error
       fetchMatrix();
     } finally {
       setToggling(null);
     }
   }
 
-  function handleEdit(feature: Feature) {
+  function handleEdit(feature: MatrixFeature) {
     setEditingFeature(feature);
     setFormOpen(true);
   }
@@ -171,9 +148,6 @@ export function FeatureMatrix() {
 
   if (!data) return null;
 
-  const grouped = groupByCategory(data.features);
-  const categories = Object.keys(grouped).sort();
-
   return (
     <div>
       {/* Header */}
@@ -181,7 +155,7 @@ export function FeatureMatrix() {
         <div>
           <h1 className="text-2xl font-bold text-white">Feature & Permission Matrix</h1>
           <p className="text-sm text-zinc-400 mt-1">
-            {data.features.length} features across {data.plans.length} plans
+            {data.categories.reduce((sum, c) => sum + c.features.length, 0)} features across {data.plans.length} plans
           </p>
         </div>
         <button
@@ -219,12 +193,12 @@ export function FeatureMatrix() {
               </tr>
             </thead>
             <tbody>
-              {categories.map((category) => (
+              {data.categories.map((cat) => (
                 <CategoryGroup
-                  key={category}
-                  category={category}
-                  features={grouped[category]}
-                  isPlanFeature={isPlanFeature}
+                  key={cat.category}
+                  category={cat.category}
+                  features={cat.features}
+                  isIncluded={isIncluded}
                   isFeatureApplicable={isFeatureApplicable}
                   toggleFeature={toggleFeature}
                   toggling={toggling}
@@ -235,7 +209,7 @@ export function FeatureMatrix() {
           </table>
         </div>
 
-        {data.features.length === 0 && (
+        {data.categories.length === 0 && (
           <div className="py-16 text-center text-zinc-500">
             <p className="mb-2">No features defined yet.</p>
             <button
@@ -263,18 +237,18 @@ export function FeatureMatrix() {
 
 interface CategoryGroupProps {
   category: string;
-  features: Feature[];
-  isPlanFeature: (featureId: number, role: Role, tier: Tier) => boolean;
-  isFeatureApplicable: (feature: Feature, role: Role) => boolean;
-  toggleFeature: (featureId: number, role: Role, tier: Tier) => void;
+  features: MatrixFeature[];
+  isIncluded: (feature: MatrixFeature, role: Role, tier: Tier) => boolean;
+  isFeatureApplicable: (feature: MatrixFeature, role: Role) => boolean;
+  toggleFeature: (feature: MatrixFeature, role: Role, tier: Tier) => void;
   toggling: string | null;
-  onEdit: (feature: Feature) => void;
+  onEdit: (feature: MatrixFeature) => void;
 }
 
 function CategoryGroup({
   category,
   features,
-  isPlanFeature,
+  isIncluded,
   isFeatureApplicable,
   toggleFeature,
   toggling,
@@ -310,7 +284,7 @@ function CategoryGroup({
               {feature.roles.map((role) => (
                 <span
                   key={role}
-                  className={cn("text-[10px] font-medium", ROLE_COLORS[role])}
+                  className={cn("text-[10px] font-medium", ROLE_COLORS[role as Role])}
                 >
                   {role}
                 </span>
@@ -320,14 +294,14 @@ function CategoryGroup({
 
           {PLAN_COLUMNS.map((col) => {
             const applicable = isFeatureApplicable(feature, col.role);
-            const checked = isPlanFeature(feature.id, col.role, col.tier);
+            const checked = isIncluded(feature, col.role, col.tier);
             const isToggling = toggling === `${col.role}-${col.tier}-${feature.id}`;
 
             return (
               <td key={`${col.role}-${col.tier}`} className="px-3 py-3 text-center">
                 {applicable ? (
                   <button
-                    onClick={() => toggleFeature(feature.id, col.role, col.tier)}
+                    onClick={() => toggleFeature(feature, col.role, col.tier)}
                     disabled={!!toggling}
                     className="inline-flex items-center justify-center"
                   >
