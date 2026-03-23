@@ -19,7 +19,9 @@ COPY apps/web/ apps/web/
 
 # NEXT_PUBLIC_ vars must be available at build time
 ARG NEXT_PUBLIC_API_URL=https://api-production-94f67.up.railway.app/api/v1
+ARG NEXT_PUBLIC_DEMO_MODE=false
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_DEMO_MODE=$NEXT_PUBLIC_DEMO_MODE
 
 # Build shared + web
 RUN pnpm --filter @myfuckingmusic/shared build && pnpm --filter web build
