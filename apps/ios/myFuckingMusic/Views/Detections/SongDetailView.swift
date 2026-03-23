@@ -391,6 +391,7 @@ private struct PulsingModifier: ViewModifier {
                 songTitle: "Blinding Lights",
                 artistName: "The Weeknd",
                 isrc: "USUG12000497",
+                confidence: nil,
                 playCount: 3,
                 snippetUrl: nil,
                 createdAt: Date(),

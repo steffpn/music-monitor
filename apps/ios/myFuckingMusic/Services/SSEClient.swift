@@ -135,6 +135,7 @@ actor SSEClient {
                                         songTitle: liveEvent.songTitle,
                                         artistName: liveEvent.artistName,
                                         isrc: liveEvent.isrc,
+                                        confidence: nil,
                                         playCount: 1,
                                         snippetUrl: liveEvent.snippetUrl,
                                         createdAt: publishedAt,
