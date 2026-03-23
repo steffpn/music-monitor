@@ -341,13 +341,16 @@ export async function processCallback(
           },
         });
 
-        // Enqueue snippet extraction
-        if (process.env.SNIPPETS_ENABLED === "true" && _snippetQueue) {
+        // Enqueue snippet extraction (always, unless explicitly disabled)
+        if (process.env.SNIPPETS_ENABLED !== "false" && _snippetQueue) {
           try {
             await _snippetQueue.add("extract", {
               airplayEventId: newEvent.id,
               stationId: station.id,
               detectedAt: detectedAt.toISOString(),
+            }, {
+              attempts: 5,
+              backoff: { type: "exponential", delay: 5000 },
             });
           } catch (err) {
             logger.error(

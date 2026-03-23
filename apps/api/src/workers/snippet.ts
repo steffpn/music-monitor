@@ -6,7 +6,7 @@
  * updates the AirplayEvent record with the R2 object key.
  *
  * Runs as a BullMQ worker with concurrency 2 (CPU-bound FFmpeg encoding).
- * Best-effort: if extraction fails, the AirplayEvent is saved without a snippet.
+ * Every detection MUST have a snippet — jobs retry on failure.
  */
 
 import { Worker, Queue } from "bullmq";
@@ -114,20 +114,18 @@ export async function processSnippetJob(
 ): Promise<void> {
   const { airplayEventId, stationId, detectedAt } = data;
 
-  // 1. Kill switch
-  if (process.env.SNIPPETS_ENABLED !== "true") {
-    logger.debug({ airplayEventId }, "Snippets disabled, skipping extraction");
+  // 1. Kill switch — only skip if explicitly disabled
+  if (process.env.SNIPPETS_ENABLED === "false") {
+    logger.debug({ airplayEventId }, "Snippets disabled via SNIPPETS_ENABLED=false, skipping");
     return;
   }
 
-  // 2. Resolve segments
+  // 2. Resolve segments — throw to retry if segments aren't ready yet
   const resolved = await resolveSegments(stationId, new Date(detectedAt));
   if (!resolved) {
-    logger.warn(
-      { airplayEventId, stationId },
-      "No segments available for snippet extraction, skipping",
+    throw new Error(
+      `No segments available for snippet extraction (event=${airplayEventId}, station=${stationId}). Will retry.`,
     );
-    return;
   }
 
   const { segments, seekOffsetSeconds } = resolved;
@@ -205,6 +203,12 @@ export async function startSnippetWorker(): Promise<{
       concurrency: 2,
       removeOnComplete: { count: 500 },
       removeOnFail: { count: 2000 },
+      settings: {
+        backoffStrategy: (attemptsMade: number) => {
+          // Exponential backoff: 5s, 15s, 45s, 2min, 5min
+          return Math.min(5000 * Math.pow(3, attemptsMade), 300000);
+        },
+      },
     },
   );
 
